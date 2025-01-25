@@ -1,16 +1,25 @@
-import { useState } from 'react'
 import './App.css'
-import LoginPage from './pages/auth/login/LoginPage'
+import LoginPage from './pages/auth/LoginPage'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SignUpPage from './pages/auth/SignUpPage';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import './commonstyles/variables.css';
+import TopNavBar from './components/navbar/TopNavBar';
+import HomePage from './pages/home/HomePage';
+
 
 
 function App() {
  
 
   return (
-    <>
-      <LoginPage></LoginPage>
-    </>
+    <Router>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/register' element={<SignUpPage />} />
+      </Routes>
+    </Router>
   )
 }
 
