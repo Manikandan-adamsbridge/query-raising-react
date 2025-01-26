@@ -32,12 +32,36 @@
 .icon-color-light{
     color: var(--light-primary-color) !important;
 }
+.icon-color-primary{
+    color: var(--primary-color) !important;
+}
 
 
 .input-group-text{
     background-color: var(--light-primary-color-bg) !important;
 }
 .form-control:focus{
-    border-color: none !important;
+    border-color: var(--primary-color) !important;
     box-shadow: none !important;
+}
+.top-bar{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f0efff;
+    border-radius: 5px;
+}
+
+.vertical-line{
+    border-right: var(--light-border);
+}
+.text-primary{
+    color: var(--primary-color) !important;
+}
+.sub-heading{
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary-color);
 }

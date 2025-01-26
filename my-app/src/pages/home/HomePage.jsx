@@ -251,11 +251,11 @@ function HomePage() {
                 <div className="d-flex justify-content-between r-top">
                   <div>
                     <span className='sub-text-r'>Created at:</span><br/>
-                    <span className='ms-1 sub2-text-r'>11/12/2024, 8:16 PM</span>
+                    <span className='ub2-text-r'>11/12/2024, 8:16 PM</span>
                   </div>
-                  <div>
+                  <div className='text-end'>
                     <span className='sub-text-r'>Assigned to:</span><br/>
-                    <span className='ms-1 sub2-text-r'>Balaji Surathi</span>
+                    <span className='sub2-text-r'>Balaji Surathi</span>
                   </div>
                 </div>
                 <div className="r-bottom mt-3">

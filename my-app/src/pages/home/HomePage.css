@@ -1,13 +1,3 @@
-.top-bar{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #f0efff;
-    border-radius: 5px;
-}
-
 .search-input{
     width: 250px;
 }
@@ -93,7 +83,7 @@
 }
 
 .r-top,.r-bottom{
-    padding: 5px 30px;
+    padding: 5px 10px;
 }
 
 .sub-text-r{

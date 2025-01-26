@@ -1,0 +1,37 @@
+.query-form-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.query-form{
+    width: 38%;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: var(--light-border);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 25px;
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 60px !important;
+}
+.q-form{
+    width: 60%;
+}
+.query-btns{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.custom-btn-q{
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
