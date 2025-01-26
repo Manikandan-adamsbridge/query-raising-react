@@ -1,0 +1,43 @@
+.primary-button-large{
+    background-color: var(--primary-color);
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 15px;
+    font-size: 14px;
+    border: 1px solid var(--primary-color);
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+    border-radius: 5px;
+    margin: 0;
+}
+.border-button{
+    background-color: white;
+    color: var(--primary-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 2px solid var(--primary-color);
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+    border-radius: 8px;
+    margin: 0;
+}
+.icon-color-light{
+    color: var(--light-primary-color) !important;
+}
+
+
+.input-group-text{
+    background-color: var(--light-primary-color-bg) !important;
+}
+.form-control:focus{
+    border-color: none !important;
+    box-shadow: none !important;
+}

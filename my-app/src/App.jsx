@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import './commonstyles/variables.css';
 import TopNavBar from './components/navbar/TopNavBar';
 import HomePage from './pages/home/HomePage';
-
+import './commonstyles/commonclass.css'
 
 
 function App() {
