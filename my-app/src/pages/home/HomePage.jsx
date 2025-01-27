@@ -5,8 +5,17 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+
 
 function HomePage() {
+
+  const navigate = useNavigate();
+
+  function redirectCreateQuery () {
+    navigate('/raiseQuery')
+  }
+
   return (
     <>
       <div className="container-fluid">
@@ -14,7 +23,7 @@ function HomePage() {
           <div className="col-12 p-0">
             <div className="top-bar">
               {/* <Button variant="outline-primary">+ Create Query</Button> */}
-              <button className='border-button'>+ Create Query</button>
+              <button className='border-button' onClick={redirectCreateQuery}>+ Create Query</button>
               <InputGroup className="search-input" size="sm">
                 <InputGroup.Text id="basic-addon1">
                 <FontAwesomeIcon icon={faMagnifyingGlass} className="icon-color-light" />

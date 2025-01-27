@@ -2,4 +2,8 @@
   margin: 0 auto;
 }
 
-
+.content{
+  margin-left: 60px;
+  width: calc(100% - 60px);
+  transition: margin-left 0.3s ease, width 0.3s ease;
+}

@@ -16,7 +16,7 @@ function ViewQuery() {
             </div>
 
             <div className="row">
-                <div className="col-md-6 col-12 vertical-line">
+                <div className="col-6 vertical-line">
                     <div className="chat-container">
                         <div className="d-flex justify-content-end align-items-center mt-3">
                             <span className='query-status'>Closed</span>
@@ -67,7 +67,7 @@ function ViewQuery() {
                 </div>
 
 
-                <div className="col-md-6 col-12">
+                <div className="col-6">
                     <div className="query-details-container">
                         <div className="head-qd justify-content-center">
                             <h5 className='query-title text-primary'>QN116655-doubts related certificate</h5>

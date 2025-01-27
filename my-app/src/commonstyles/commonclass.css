@@ -40,10 +40,10 @@
 .input-group-text{
     background-color: var(--light-primary-color-bg) !important;
 }
-.form-control:focus{
+/* .form-control:focus{
     border-color: var(--primary-color) !important;
     box-shadow: none !important;
-}
+} */
 .top-bar{
     width: 100%;
     display: flex;
@@ -51,7 +51,6 @@
     align-items: center;
     padding: 10px 20px;
     background-color: #f0efff;
-    border-radius: 5px;
 }
 
 .vertical-line{
@@ -65,3 +64,38 @@
     font-weight: 600;
     color: var(--primary-color);
 }
+.common-label{
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-black);
+}
+
+.common-input{
+    border: var(--light-border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-black);
+}
+
+.common-input:focus{
+    border-color: var(--primary-color) !important;
+    box-shadow: none !important;
+}
+
+/* time picker */
+.p-inputtext{
+    border: var(--light-border) !important;
+    border-radius: 8px !important;
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: var(--text-black) !important;
+}
+
+.p-inputtext:focus{
+    border-color: var(--primary-color) !important;
+    box-shadow: none !important;
+}
+/* time picker */

@@ -1,5 +1,9 @@
 .search-input{
     width: 250px;
+    .form-control:focus{
+        border-color: var(--primary-color) !important;
+        box-shadow: none !important;
+    }
 }
 
 .query-container{

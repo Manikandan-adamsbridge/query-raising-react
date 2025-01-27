@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './CreateQuery.css'
 import Form from 'react-bootstrap/Form';
+import { Calendar } from 'primereact/calendar';
 
 function CreateQuery() {
+
+    const[fromTime, SetFromTime] = useState(null);
+    const[toTime, SetToTime] = useState(null);
+    
   return (
     <>
         <div className="container-fluid">
@@ -21,8 +26,18 @@ function CreateQuery() {
                         <div className='q-form'>
                             <p className='sub-heading text-center mb-4'>Topic</p>
                             <Form.Group controlId="formGridState" className='mb-4'>
-                                <Form.Label>Category</Form.Label>
-                                <Form.Select defaultValue="Choose...">
+                                <Form.Label className='common-label'>Category</Form.Label>
+                                <Form.Select defaultValue="Choose..." className='common-input'>
+                                    <option className='common-option'>---Select Category---</option>
+                                    <option>Zen-Class Doubt</option>
+                                    <option>Coordination Related</option>
+                                    <option>Placement Related</option>
+                                    <option>Pre-Bootcamp Related</option>
+                                </Form.Select>
+                            </Form.Group>
+                            <Form.Group controlId="formGridState" className='mb-4'>
+                                <Form.Label className='common-label'>Sub Category</Form.Label>
+                                <Form.Select defaultValue="Choose..." className='common-input'>
                                     <option>---Select Category---</option>
                                     <option>Zen-Class Doubt</option>
                                     <option>Coordination Related</option>
@@ -31,18 +46,8 @@ function CreateQuery() {
                                 </Form.Select>
                             </Form.Group>
                             <Form.Group controlId="formGridState" className='mb-4'>
-                                <Form.Label>Sub Category</Form.Label>
-                                <Form.Select defaultValue="Choose...">
-                                    <option>---Select Category---</option>
-                                    <option>Zen-Class Doubt</option>
-                                    <option>Coordination Related</option>
-                                    <option>Placement Related</option>
-                                    <option>Pre-Bootcamp Related</option>
-                                </Form.Select>
-                            </Form.Group>
-                            <Form.Group controlId="formGridState" className='mb-4'>
-                                <Form.Label>Prefered Voice Communication Language</Form.Label>
-                                <Form.Select defaultValue="Choose...">
+                                <Form.Label className='common-label'>Prefered Voice Communication Language</Form.Label>
+                                <Form.Select defaultValue="Choose..." className='common-input'>
                                     <option>---Select Category---</option>
                                     <option>Tamil</option>
                                     <option>English</option>
@@ -52,24 +57,34 @@ function CreateQuery() {
 
                             <p className='sub-heading text-center mb-3'>Details</p>
                                 <Form.Group controlId="formGridEmail" className="mb-4">
-                                    <Form.Label>Query Title</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter the query title" />
+                                    <Form.Label className='common-label'>Query Title</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter the query title" className='common-input' />
                                 </Form.Group>
                                 <Form.Group className="mb-4" controlId="exampleForm.ControlTextarea1">
-                                    <Form.Label>Query Description</Form.Label>
-                                    <Form.Control as="textarea" rows={3} placeholder="Enter the query description" />
+                                    <Form.Label className='common-label'>Query Description</Form.Label>
+                                    <Form.Control as="textarea" rows={3} placeholder="Enter the query description" className='common-input' />
                             </Form.Group>
 
                             <p className='sub-heading text-center mb-3'>Your available Time ? ( Ours : 9:00 AM - 7:00 PM )</p>
-                                <Form.Group controlId="formGridEmail" className="mb-4">
-                                    <Form.Label>From</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter the query title" />
-                                </Form.Group>
-                                <Form.Group controlId="formGridEmail" className="mb-4">
-                                    <Form.Label>To</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter the query title" />
-                                </Form.Group>
 
+                                <div className="time-picker mb-2">
+                                    <div className="flex-auto">
+                                        <label htmlFor="calendar-12h" className="mb-2 common-label">
+                                            Form
+                                        </label>
+                                        <Calendar placeholder='From time' className='w-100' id="calendar-12h" value={fromTime} onChange={(e) => SetFromTime(e.value)} showTime hourFormat="12" timeOnly/>
+                                    </div>
+                                </div>
+
+                                <div className="time-picker mb-2">
+                                    <div className="flex-auto">
+                                        <label htmlFor="calendar-12h" className="mb-2 common-label">
+                                            To
+                                        </label>
+                                        <Calendar placeholder='To time' className='w-100' id="calendar-12h" value={toTime} onChange={(e) => SetToTime(e.value)} showTime hourFormat="12" timeOnly/>
+                                    </div>
+                                </div>
+                              
                         </div>
 
                         <div className="query-btns">
