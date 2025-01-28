@@ -1,5 +1,5 @@
 :root{
-    --primary-color: #4b0dba;
+    --zen-primary-color: #4b0dba;
 
     --light-primary-color: #b182ff;
     --light-primary-color-bg: #f7f5fc;
@@ -11,4 +11,5 @@
     --text-gray-light: #7e8e9f;
     --text-black: #555a8f;
     --text-dark: #232323;
+    --icon-color: #838282;
 }
