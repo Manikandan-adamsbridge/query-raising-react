@@ -1,0 +1,30 @@
+.top-box-row{
+    padding: 0 15px;
+}
+.ticket-box{
+    padding: 15px 18px;
+    position: relative;
+    border: var(--light-border);
+    border-radius: 8px;
+}
+
+.box-icon{
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    color: var(--zen-primary-color);
+    padding: 8px 10px;
+    border-radius: 5px;
+    background-color: var(--light-primary-color-bg);
+}
+.box-number{
+    font-size: 20px; 
+    font-weight: 400;
+    margin-left: 2px;
+}
+.box-title{
+    font-size: 18px;
+    color: var(--text-black);
+    margin: 0;
+    margin-bottom: 10px;
+}

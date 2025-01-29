@@ -15,10 +15,10 @@
     justify-content: start;
     align-items: center;
     flex-direction: column;
-    padding: 1rem 0;
+    padding: 1rem 0; 
 }
 .sidebar:hover{
-    width: 220px;
+    width: 200px;
     -webkit-transform: translateZ(0) scale(1);
     -webkit-transition: width .3s ease;
 }
