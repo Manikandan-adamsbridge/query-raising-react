@@ -1,12 +1,27 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import './MentorDashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartSimple, faMagnifyingGlass, faTicket } from '@fortawesome/free-solid-svg-icons';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
+import AgGrid from '../../components/Ag-Grid/AgGrid';
+import { useNavigate } from 'react-router-dom';
+import { Common } from '../../contextapi/common';
 
 
 function MentorDasboard() {
+
+    const navigate = useNavigate();
+    const { data, setData } = useContext(Common);
+
+    useEffect(()=>{
+        console.log(data)
+    },[])
+    
+    const handleBack = () => {
+    navigate(-1); 
+    };
+
   return (
     <>
         <div className="container-fluid">
@@ -73,7 +88,7 @@ function MentorDasboard() {
 
             <div className="row">
                 <div className="col-12">
-
+                    <AgGrid></AgGrid>
                 </div>
             </div>
 
