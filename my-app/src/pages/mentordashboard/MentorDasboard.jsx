@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import './MentorDashboard.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartSimple, faMagnifyingGlass, faTicket } from '@fortawesome/free-solid-svg-icons';
+import { faChartSimple, faGraduationCap, faMagnifyingGlass, faTicket } from '@fortawesome/free-solid-svg-icons';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import AgGrid from '../../components/Ag-Grid/AgGrid';
@@ -28,9 +28,9 @@ function MentorDasboard() {
             <div className="row">
                 <div className="col-12 p-0">
                     <div className="top-bar">
-                    <button className='border-button'>
-                        <FontAwesomeIcon icon={faChartSimple} />
-                        Insights
+                    <button className='border-button' onClick={()=>navigate('/queryFeeds')}>
+                        <FontAwesomeIcon icon={faGraduationCap} />
+                        Query Feeds
                     </button>
                     <InputGroup className="search-input" size="sm">
                         <InputGroup.Text id="basic-addon1">

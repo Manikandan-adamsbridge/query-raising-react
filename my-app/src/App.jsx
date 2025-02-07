@@ -16,6 +16,7 @@ import 'primeflex/primeflex.css';
 import Sidebar from './components/sidebar/Sidebar';
 import MentorDasboard from './pages/mentordashboard/MentorDasboard';
 import { CommonProvider } from './contextapi/common'
+import QueryFeeds from './pages/queryfeeds/QueryFeeds';
 
 
 
@@ -48,6 +49,7 @@ function MainLayout() {
           <Route path='/query' element={<ViewQuery />} />
           <Route path='/raiseQuery' element={<CreateQuery />} />
           <Route path='/mentorDashboard' element={<MentorDasboard />} />
+          <Route path='/queryFeeds' element={<QueryFeeds />} />
       </Routes>
       </div>
       </>

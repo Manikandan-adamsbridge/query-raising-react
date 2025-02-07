@@ -70,7 +70,7 @@ function ViewQuery() {
                 <div className="col-6">
                     <div className="query-details-container">
                         <div className="head-qd justify-content-center">
-                            <h5 className='query-title text-primary'>QN116655-doubts related certificate</h5>
+                            <h5 className='query-title zen-primary-text'>QN116655-doubts related certificate</h5>
                         </div>
 
                         <div className="d-flex justify-content-between r-top">

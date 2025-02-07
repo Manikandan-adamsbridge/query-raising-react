@@ -15,6 +15,9 @@ function HomePage() {
   function redirectCreateQuery () {
     navigate('/raiseQuery')
   }
+  function redirectToViewQuery() {
+    navigate('/query')
+  }
 
   return (
     <>
@@ -272,7 +275,7 @@ function HomePage() {
                   <span className='ms-1 sub2-text-r'>i completed my MERN stack 1.5 years ago but submitted the project and get the certificate can i able to get the certificate now by completing and submitting the project</span>
                 </div>
                 <div className="r-btn d-flex justify-content-center mt-5">
-                  <button className='primary-button-large'>View Query</button>
+                  <button className='primary-button-large' onClick={redirectToViewQuery}>View Query</button>
                 </div>
               </div>
             </div>
