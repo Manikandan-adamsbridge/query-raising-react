@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './HomePage.css'
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -6,11 +6,13 @@ import Form from 'react-bootstrap/Form';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 
 function HomePage() {
 
   const navigate = useNavigate();
+  const url = "http://localhost:3000/ticket/getTickets";
+  const[queryData, setQueryData] = useState([]);
 
   function redirectCreateQuery () {
     navigate('/raiseQuery')
@@ -18,6 +20,34 @@ function HomePage() {
   function redirectToViewQuery() {
     navigate('/query')
   }
+
+  async function getQueryById() {
+    try {
+      
+      const response = await axios.get(`${url}/${localStorage.getItem("userId")}`);
+      setQueryData(response.data.data);
+
+    } catch (error) {
+      console.log("error while getting query", error)
+    }
+  }
+
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  useEffect(() => {
+    getQueryById();
+  },[])
+
 
   return (
     <>
@@ -44,208 +74,24 @@ function HomePage() {
         <div className="row">
           <div className="col-6">
             <div className="query-container">
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
 
-              <div className="query-tab mb-3">
+            {
+              queryData.length > 0 ? (
+                queryData.map((query) => (
+              <div className="query-tab mb-3" key={query._id}>
                 <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
+                  <h5 className='query-title'><span className='captalize'>{query._id.slice(-5)}</span>-{query.Query_title}</h5>
+                  <span className='query-category'>{query.category}</span>
                 </div>
                 <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
+                  <span className='query-status'>{query.status}</span>
+                  <span className='query-time'>{formatDate(query.createdAt)}</span>
                 </div>
               </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-              <div className="query-tab mb-3">
-                <div>
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-category'>Coordination Related</span>
-                </div>
-                <div className='query-status-container'>
-                  <span className='query-status'>Closed</span>
-                  <span className='query-time'>11/12/2024, 8:16 PM</span>
-                </div>
-              </div>
-
+                ))
+              ) : <p>No Queries Found</p>
+            }
+            
             </div>
           </div>
 

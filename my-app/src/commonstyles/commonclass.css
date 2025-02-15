@@ -112,6 +112,10 @@
     box-shadow: none !important;
 }
 
+.captalize{
+    text-transform: uppercase;
+}
+
 /* .btn-primary {
     --bs-btn-color: #fff;
     --bs-btn-bg: #0d6efd;

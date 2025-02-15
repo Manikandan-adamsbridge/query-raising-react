@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './auth.css'
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -7,9 +7,40 @@ import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import Button from 'react-bootstrap/Button';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 
 
 function LoginPage() {
+
+  const navigate = useNavigate();
+
+  const[userDetails, setUserDetails] = useState({
+    emailid: "",
+    password: ""
+  })
+  const url = "http://localhost:3000/auth/login";
+
+
+  async function login() {
+    try {
+      
+      const response = await axios.post(url, userDetails);
+      if(response.data.message === "User loggedin successfully"){
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("userDetails", response.data.userData);
+        localStorage.setItem("userId", response.data.userData._id)
+        navigate('/')
+      } 
+
+    } catch (error) {
+      console.error("Login failed:", error.response ? error.response.data : error.message);
+    }
+  }
+
+  const handleChange = (e) => {
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
+  };
 
 
   return (
@@ -30,14 +61,14 @@ function LoginPage() {
                       <InputGroup.Text>
                       <FontAwesomeIcon icon={faEnvelope} />
                       </InputGroup.Text>
-                      <Form.Control id="inlineFormInputGroup" placeholder="Email address" />
+                      <Form.Control id="inlineFormInputGroup" placeholder="Email address" name='emailid' value={userDetails.emailid} onChange={handleChange}/>
                     </InputGroup>
 
                     <InputGroup className="mb-1" type="password">
                       <InputGroup.Text>
                       <FontAwesomeIcon icon={faLock} />
                       </InputGroup.Text>
-                      <Form.Control id="inlineFormInputGroup" placeholder="Password" />
+                      <Form.Control id="inlineFormInputGroup" placeholder="Password" name='password' value={userDetails.password} onChange={handleChange}/>
                     </InputGroup>
 
                     <div className="sub d-flex justify-content-end me-2 mb-4">
@@ -48,7 +79,7 @@ function LoginPage() {
                       <Button variant="outline-dark" className='w-100'>
                         <FontAwesomeIcon icon={faGoogle} />
                       </Button>
-                      <Button variant="primary" className='w-100'>Login</Button>
+                      <Button variant="primary" className='w-100' onClick={()=> login()}>Login</Button>
                     </div>
 
                     <div className="footer-container ">

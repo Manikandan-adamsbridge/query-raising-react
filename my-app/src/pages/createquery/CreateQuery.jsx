@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import './CreateQuery.css';
 import Form from 'react-bootstrap/Form';
 import { Calendar } from 'primereact/calendar';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function CreateQuery() {
+
+    const url = "http://localhost:3000/ticket/raiseTicket";
+    const navigate = useNavigate()
+
     const [query, setQuery] = useState({
         category: "",
         subCategory: "",
@@ -16,7 +22,6 @@ function CreateQuery() {
 
     // Function to handle input changes
     const handleChange = (e) => {
-        console.log("name",e.target.name)
         setQuery({ ...query, [e.target.name]: e.target.value });
     };
 
@@ -26,8 +31,39 @@ function CreateQuery() {
     };
 
     // Function to handle form submission
-    const handleSubmit = () => {
-        console.log("Form Data:", query);
+    const handleSubmit = async () => {
+       try {
+        
+        const payload = {
+            raised_by: localStorage.getItem("userId"),
+            Query_title: query.queryTitle,
+            category: query.category,
+            sub_category: query.subCategory,
+            language_preference: query.preferedLanguage,
+            Query_description: query.queryDescription,
+            availableTime: {
+                from: query.fromTime,
+                till: query.toTime
+            }
+        } 
+
+        const response = await axios.post(url, payload);
+        if(response.data.message === "ticket created successfully" ){
+            setQuery({
+                category: "",
+                subCategory: "",
+                preferedLanguage: "",
+                queryTitle: "",
+                queryDescription: "",
+                fromTime: null,
+                toTime: null
+            })
+            navigate('/')
+        }
+
+       } catch (error) {
+        console.log("Error while creating Query", error)
+       }
     };
 
     return (

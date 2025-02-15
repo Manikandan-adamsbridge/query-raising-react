@@ -39,7 +39,7 @@ function MainLayout() {
 
   return (
       <>
-      <Sidebar />
+      {!hideNavbarRoutes.includes(location.pathname) && <Sidebar />}
       <div className="content">
         {!hideNavbarRoutes.includes(location.pathname) && <TopNavBar />}
         <Routes>
