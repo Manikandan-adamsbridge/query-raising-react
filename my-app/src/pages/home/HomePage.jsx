@@ -80,7 +80,7 @@ function HomePage() {
                 queryData.map((query) => (
               <div className="query-tab mb-3" key={query._id}>
                 <div>
-                  <h5 className='query-title'><span className='captalize'>{query._id.slice(-5)}</span>-{query.Query_title}</h5>
+                  <h5 className='query-title'><span className='captalize'>{query._id.slice(-7)}</span>-{query.Query_title}</h5>
                   <span className='query-category'>{query.category}</span>
                 </div>
                 <div className='query-status-container'>
