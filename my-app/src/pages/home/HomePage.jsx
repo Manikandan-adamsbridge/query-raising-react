@@ -84,7 +84,7 @@ function HomePage() {
                   <span className='query-category'>{query.category}</span>
                 </div>
                 <div className='query-status-container'>
-                  <span className='query-status'>{query.status}</span>
+                  <span className="query-status unassigned">{query.status}</span>
                   <span className='query-time'>{formatDate(query.createdAt)}</span>
                 </div>
               </div>

@@ -133,3 +133,18 @@
     --bs-btn-disabled-border-color: #0d6efd;
 } */
 
+
+.unassigned {
+    background-color: #f9cece;
+    color: #b40707;
+}
+  
+.assigned {
+    background-color: #f4f6c5;
+    color: #959a03;
+}
+
+.closed {
+    background-color: #d6ffe4;
+    color: #06aa44;
+}
