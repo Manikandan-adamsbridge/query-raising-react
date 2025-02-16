@@ -135,16 +135,16 @@
 
 
 .unassigned {
-    background-color: #f9cece;
-    color: #b40707;
+    background-color: #fae5e5 !important;
+    color: #f15858 !important;
 }
   
 .assigned {
-    background-color: #f4f6c5;
-    color: #959a03;
+    background-color: #f4f6c5 !important;
+    color: #959a03 !important;
 }
 
 .closed {
-    background-color: #d6ffe4;
-    color: #06aa44;
+    background-color: #d6ffe4 !important;
+    color: #06aa44 !important;
 }

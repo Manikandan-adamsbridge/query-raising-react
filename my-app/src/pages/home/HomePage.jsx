@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './HomePage.css'
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -7,18 +7,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Common } from '../../contextapi/common';
 
 function HomePage() {
 
   const navigate = useNavigate();
   const url = "http://localhost:3000/ticket/getTickets";
+
+  const { formatDate } = useContext(Common);
+
   const[queryData, setQueryData] = useState([]);
+  const[searchInput, setSearchInput] = useState("");
+  const [filteredData, setFilteredData] = useState(queryData);
 
   function redirectCreateQuery () {
     navigate('/raiseQuery')
   }
-  function redirectToViewQuery() {
-    navigate('/query')
+  function redirectToViewQuery(queryId) {
+    navigate(`/query/${queryId}`)
   }
 
   async function getQueryById() {
@@ -32,21 +38,29 @@ function HomePage() {
     }
   }
 
-  const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    return date.toLocaleString("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    });
+  const search = (e) => {
+    const value = e.target.value.toLowerCase();
+    setSearchInput(value);
+  
+    if (value.length > 3) {
+      const searchedData = queryData.filter((query) => 
+        query.Query_title.toLowerCase().includes(value) ||
+        query._id.toLowerCase().includes(value)
+      );
+      setFilteredData(searchedData);
+    } else {
+      setFilteredData(queryData); 
+    }
   };
 
   useEffect(() => {
     getQueryById();
   },[])
+
+  useEffect(() => {
+    setFilteredData(queryData);
+  }, [queryData]);
+
 
 
   return (
@@ -65,6 +79,8 @@ function HomePage() {
                   placeholder="Search"
                   aria-label="Search"
                   aria-describedby="basic-addon1"
+                  value={searchInput}
+                  onChange={search}
                 />
               </InputGroup>
             </div>
@@ -76,15 +92,15 @@ function HomePage() {
             <div className="query-container">
 
             {
-              queryData.length > 0 ? (
-                queryData.map((query) => (
+              filteredData.length > 0 ? (
+                filteredData.map((query) => (
               <div className="query-tab mb-3" key={query._id}>
                 <div>
                   <h5 className='query-title'><span className='captalize'>{query._id.slice(-7)}</span>-{query.Query_title}</h5>
                   <span className='query-category'>{query.category}</span>
                 </div>
                 <div className='query-status-container'>
-                  <span className="query-status unassigned">{query.status}</span>
+                  <span className={`query-status ${query.status === 'unassigned' ? 'unassigned' : query.status === 'assigned' ? 'assigned' : 'closed'}`}>{query.status}</span>
                   <span className='query-time'>{formatDate(query.createdAt)}</span>
                 </div>
               </div>
@@ -96,35 +112,39 @@ function HomePage() {
           </div>
 
           <div className="col-6">
-            <div className="recent-query-container">
-              <div className="recent-top">
-                <h5 className='top-text'>Recent Queries</h5>
-                <div className="head-r">
-                  <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                  <span className='query-status'>Closed</span>
+            {
+              queryData.length > 0 ?(
+              <div className="recent-query-container">
+                <div className="recent-top">
+                  <h5 className='top-text'>Recent Queries</h5>
+                  <div className="head-r">
+                    <h5 className='query-title'><span className='captalize'>{queryData[0]._id.slice(-7)}</span>-{queryData[0].Query_title}</h5>
+                    <span className={`query-status ${queryData[0].status === 'unassigned' ? 'unassigned' : queryData[0].status === 'assigned' ? 'assigned' : 'closed'}`}>{queryData[0].status}</span>
+                  </div>
                 </div>
-              </div>
 
-              <div className="recent-container pt-3">
-                <div className="d-flex justify-content-between r-top">
-                  <div>
-                    <span className='sub-text-r'>Created at:</span><br/>
-                    <span className='ub2-text-r'>11/12/2024, 8:16 PM</span>
+                <div className="recent-container pt-3">
+                  <div className="d-flex justify-content-between r-top">
+                    <div>
+                      <span className='sub-text-r'>Created at:</span><br/>
+                      <span className='ub2-text-r'>{formatDate(queryData[0].createdAt)}</span>
+                    </div>
+                    <div className='text-end'>
+                      <span className='sub-text-r'>Assigned to:</span><br/>
+                      <span className='sub2-text-r'>{!queryData[0].assigned_to ? 'Not Assigned' : queryData[0].assigned_to}</span>
+                    </div>
                   </div>
-                  <div className='text-end'>
-                    <span className='sub-text-r'>Assigned to:</span><br/>
-                    <span className='sub2-text-r'>Balaji Surathi</span>
+                  <div className="r-bottom mt-3">
+                    <span className='sub-text-r'>Description:</span><br/>
+                    <span className='ms-1 sub2-text-r'>{queryData[0].Query_description}</span>
                   </div>
-                </div>
-                <div className="r-bottom mt-3">
-                  <span className='sub-text-r'>Description:</span><br/>
-                  <span className='ms-1 sub2-text-r'>i completed my MERN stack 1.5 years ago but submitted the project and get the certificate can i able to get the certificate now by completing and submitting the project</span>
-                </div>
-                <div className="r-btn d-flex justify-content-center mt-5">
-                  <button className='primary-button-large' onClick={redirectToViewQuery}>View Query</button>
+                  <div className="r-btn d-flex justify-content-center mt-5">
+                    <button className='primary-button-large' onClick={() => redirectToViewQuery(queryData[0]._id)}>View Query</button>
+                  </div>
                 </div>
               </div>
-            </div>
+              ) : <p>No Queries Found</p>
+            }
           </div>
 
         </div>

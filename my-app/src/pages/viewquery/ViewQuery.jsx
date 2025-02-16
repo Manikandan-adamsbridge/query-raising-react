@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './ViewQuery.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faStar } from '@fortawesome/free-solid-svg-icons'
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { Common } from '../../contextapi/common';
 
 function ViewQuery() {
+
+    const { id } = useParams();
+    const url = "http://localhost:3000/ticket/viewQuery";
+    const { formatDate } = useContext(Common);
+
+    const[query, setQuery] = useState({})
+
+    async function getQueryByQueryId() {
+        try {
+            
+            console.log(`${url}/${id}`)
+            const response = await axios.get(`${url}/${id}`);
+            setQuery(response.data.data);
+            console.log(response.data.data)
+            console.log("aFaf",query)
+
+        } catch (error) {
+            console.log("error whil getting query", error)
+        }
+    }
+
+    useEffect(() => {
+        getQueryByQueryId()
+    },[id, url])
+
+
   return (
     <>
         <div className="container-fluid">
@@ -68,50 +97,50 @@ function ViewQuery() {
 
 
                 <div className="col-6">
+
+                {query.length? (
                     <div className="query-details-container">
                         <div className="head-qd justify-content-center">
-                            <h5 className='query-title zen-primary-text'>QN116655-doubts related certificate</h5>
+                            <h5 className='query-title zen-primary-text'><span className='captalize'>{query._id.slice(-7)}</span>-{query.Query_title}</h5>
                         </div>
 
                         <div className="d-flex justify-content-between r-top">
                             <div>
                                 <span className='sub-text-r'>Created at:</span><br/>
-                                <span className='sub2-text-r'>11/12/2024, 8:16 PM</span>
+                                <span className='sub2-text-r'>{formatDate(query.createdAt)}</span>
                             </div>
                             <div className='text-end'> 
                                 <span className='sub-text-r'>Assigned to:</span><br/>
-                                <span className='sub2-text-r'>Balaji Surathi</span>
+                                <span className='sub2-text-r'>{!query.assigned_to ? 'Not Assigned' : query.assigned_to}</span>
                             </div>
                         </div>
 
                         <div className="d-flex justify-content-between r-top">
                             <div>
                                 <span className='sub-text-r'>Category:</span><br/>
-                                <span className='sub2-text-r'>Coordination Related</span>
+                                <span className='sub2-text-r'>{query.category}</span>
                             </div>
                             <div className='text-end'>
                                 <span className='sub-text-r'>Sub-Category:</span><br/>
-                                <span className='sub2-text-r'>Completion Certificate</span>
+                                <span className='sub2-text-r'>{query.sub_category}</span>
                             </div>
                         </div>
 
                         <div className="r-bottom mt-3">
                             <span className='sub-text-r'>Description:</span><br/>
-                            <span className='ms-1 sub2-text-r'>i completed my MERN stack 1.5 years ago but submitted the project and get the certificate can i able to get the certificate now by completing and submitting the project</span>
+                            <span className='ms-1 sub2-text-r'>{query.Query_description}</span>
                         </div>
 
                         <div className="d-flex justify-content-between r-top">
                             <div>
                                 <span className='sub-text-r'>Preferred Language:</span><br/>
-                                <span className='ms-1 sub2-text-r'>Tamil</span>
+                                <span className='ms-1 sub2-text-r'>{query.language_preference}</span>
                             </div>
-                            {/* <div>
-                                <span className='sub-text-r'>Sub-Category:</span><br/>
-                                <span className='ms-1 sub2-text-r'>Completion Certificate</span>
-                            </div> */}
                         </div>
 
                     </div>
+                ) : <p>No Queries Found</p>}
+                    
                 </div>
 
             </div>

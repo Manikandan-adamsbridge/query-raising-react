@@ -46,7 +46,7 @@ function MainLayout() {
           <Route path='/' element={<HomePage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/register' element={<SignUpPage />} />
-          <Route path='/query' element={<ViewQuery />} />
+          <Route path='/query/:id' element={<ViewQuery />} />
           <Route path='/raiseQuery' element={<CreateQuery />} />
           <Route path='/mentorDashboard' element={<MentorDasboard />} />
           <Route path='/queryFeeds' element={<QueryFeeds />} />
