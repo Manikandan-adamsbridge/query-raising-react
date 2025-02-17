@@ -94,7 +94,7 @@ function HomePage() {
             {
               filteredData.length > 0 ? (
                 filteredData.map((query) => (
-              <div className="query-tab mb-3" key={query._id}>
+              <div className="query-tab mb-3" key={query._id} onClick={() => redirectToViewQuery(query._id)}>
                 <div>
                   <h5 className='query-title'><span className='captalize'>{query._id.slice(-7)}</span>-{query.Query_title}</h5>
                   <span className='query-category'>{query.category}</span>

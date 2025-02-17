@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './QueryFeeds.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -7,8 +7,61 @@ import Form from 'react-bootstrap/Form';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from 'react-router-dom';
 import { Common } from '../../contextapi/common';
+import axios from 'axios';
+import { useContext } from 'react';
 
 function QueryFeeds() {
+
+    const navigate = useNavigate();
+    const url = "http://localhost:3000/ticket/getAllQueries";
+    const { formatDate } = useContext(Common);
+
+    const[allQueries, setAllQueries] = useState([]);
+    const [filteredData, setFilteredData] = useState(allQueries);
+    const[searchInput, setSearchInput] = useState("");
+    const[selectedQuery, setSelectedQuery] = useState(allQueries[0]);
+
+    async function getAllQueries() {
+        try {
+            
+            const response = await axios.get(url);
+            setAllQueries(response.data.data);
+            setSelectedQuery(response.data.data[0])
+            
+
+        } catch (error) {
+            console.log("error while getting queries", error)
+        }
+    }
+
+    const selectQuery = (val) => {
+        setSelectedQuery(val)
+        console.log(selectedQuery)
+    }
+
+    const search = (e) => {
+        const value = e.target.value.toLowerCase();
+        setSearchInput(value);
+      
+        if (value.length > 3) {
+          const searchedData = allQueries.filter((query) => 
+            query.Query_title.toLowerCase().includes(value) ||
+            query._id.toLowerCase().includes(value)
+          );
+          setFilteredData(searchedData);
+        } else {
+          setFilteredData(allQueries); 
+        }
+      };
+
+    useEffect(() => {
+        getAllQueries()
+    },[])
+
+    useEffect(() => {
+        setFilteredData(allQueries);
+      }, [allQueries]);
+
   return (
     <div className="container-fluid">
         <div className="row">
@@ -35,6 +88,8 @@ function QueryFeeds() {
                         placeholder="Search"
                         aria-label="Search"
                         aria-describedby="basic-addon1"
+                        value={searchInput}
+                        onChange={search}
                         />
                     </InputGroup>
                 </div>
@@ -43,255 +98,75 @@ function QueryFeeds() {
         <div className="row">
             <div className="col-4">
                 <div className="query-container">
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
 
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
-                <div className="query-tab mb-3">
-                    <div>
-                    <h5 className='query-title'>QN116655-doubts related certificate</h5>
-                    <span className='query-category'>Coordination Related</span>
-                    </div>
-                    <div className='query-status-container'>
-                    <span className='query-status'>Closed</span>
-                    <span className='query-time'>11/12/2024, 8:16 PM</span>
-                    </div>
-                </div>
+                {filteredData.length > 0 ? (
+
+                    filteredData.map((query) => (
+                        <div className="query-tab mb-3" key={query._id} onClick={() => selectQuery(query)}>
+                            <div>
+                            <h5 className='query-title'><span className='captalize'>{query._id.slice(-7)}</span>-{query.Query_title}</h5>
+                            <span className='query-category'>{query.category}</span>
+                            </div>
+                            <div className='query-status-container'>
+                            <span className={`query-status ${query.status === 'unassigned' ? 'unassigned' : query.status === 'assigned' ? 'assigned' : 'closed'}`}>{query.status}</span>
+                            <span className='query-time'>{formatDate(query.createdAt)}</span>
+                            </div>
+                        </div>
+                    ))
+
+                ): <p>No Queries Found</p>}
 
                 </div>
             </div>
             <div className="col-8">
-                <div className="query-details-container">
+            {allQueries.length > 0 ? (
+
+                <div className="recent-query-container">
                     <div className="head-qd justify-content-center">
-                        <h5 className='query-title zen-primary-text'>QN116655-doubts related certificate</h5>
+                        <h5 className='query-title zen-primary-text'><span className='captalize'>{selectedQuery._id.slice(-7)}</span>-{selectedQuery.Query_title}</h5>
                     </div>
 
                     <div className="d-flex justify-content-between r-top">
                         <div>
                             <span className='sub-text-r'>Created at:</span><br/>
-                            <span className='sub2-text-r'>11/12/2024, 8:16 PM</span>
+                            <span className='sub2-text-r'>{formatDate(selectedQuery.createdAt)}</span>
                         </div>
                         <div className='text-end'> 
                             <span className='sub-text-r'>Assigned to:</span><br/>
-                            <span className='sub2-text-r'>Balaji Surathi</span>
+                            <span className='sub2-text-r'>{!selectedQuery.assigned_to ? 'Not Assigned' : selectedQuery.assigned_to}</span>
                         </div>
                     </div>
 
                     <div className="d-flex justify-content-between r-top">
                         <div>
                             <span className='sub-text-r'>Category:</span><br/>
-                            <span className='sub2-text-r'>Coordination Related</span>
+                            <span className='sub2-text-r'>{selectedQuery.category}</span>
                         </div>
                         <div className='text-end'>
                             <span className='sub-text-r'>Sub-Category:</span><br/>
-                            <span className='sub2-text-r'>Completion Certificate</span>
+                            <span className='sub2-text-r'>{selectedQuery.sub_category}</span>
                         </div>
                     </div>
 
                     <div className="r-bottom mt-3">
                         <span className='sub-text-r'>Description:</span><br/>
-                        <span className='ms-1 sub2-text-r'>i completed my MERN stack 1.5 years ago but submitted the project and get the certificate can i able to get the certificate now by completing and submitting the project</span>
+                        <span className='ms-1 sub2-text-r'>{selectedQuery.Query_description}</span>
                     </div>
 
                     <div className="d-flex justify-content-between r-top">
                         <div>
                             <span className='sub-text-r'>Preferred Language:</span><br/>
-                            <span className='ms-1 sub2-text-r'>Tamil</span>
+                            <span className='ms-1 sub2-text-r'>{selectedQuery.language_preference}</span>
                         </div>
-                        {/* <div>
-                            <span className='sub-text-r'>Sub-Category:</span><br/>
-                            <span className='ms-1 sub2-text-r'>Completion Certificate</span>
-                        </div> */}
+                    </div>
+
+                    <div className="r-btn d-flex justify-content-center mt-5">
+                        <button className='primary-button-large'>Pick Up Query</button>
                     </div>
 
                 </div>
+
+            ) : <p>No Queries Found</p>}
             </div>
         </div>
     </div>

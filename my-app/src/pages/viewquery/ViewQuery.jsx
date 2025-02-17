@@ -20,8 +20,6 @@ function ViewQuery() {
             console.log(`${url}/${id}`)
             const response = await axios.get(`${url}/${id}`);
             setQuery(response.data.data);
-            console.log(response.data.data)
-            console.log("aFaf",query)
 
         } catch (error) {
             console.log("error whil getting query", error)
@@ -48,7 +46,7 @@ function ViewQuery() {
                 <div className="col-6 vertical-line">
                     <div className="chat-container">
                         <div className="d-flex justify-content-end align-items-center mt-3">
-                            <span className='query-status'>Closed</span>
+                        <span className={`query-status ${query.status === 'unassigned' ? 'unassigned' : query.status === 'assigned' ? 'assigned' : 'closed'}`}>{query.status}</span>
                         </div>
 
                         <div className="chats">
@@ -98,7 +96,7 @@ function ViewQuery() {
 
                 <div className="col-6">
 
-                {query.length? (
+                {Object.keys(query).length > 0? (
                     <div className="query-details-container">
                         <div className="head-qd justify-content-center">
                             <h5 className='query-title zen-primary-text'><span className='captalize'>{query._id.slice(-7)}</span>-{query.Query_title}</h5>
