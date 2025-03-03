@@ -6,6 +6,16 @@ const Common = createContext();
 function CommonProvider({children}) {
 
     const [data, setData] = useState(4);
+    const [userRole, setUserRole] = useState(localStorage.getItem("userRole") || null);
+
+    useEffect(() => {
+      if (userRole) {
+        localStorage.setItem("userRole", userRole);
+      } else {
+        localStorage.removeItem("userRole"); 
+      }
+    }, [userRole]);
+  
 
     const formatDate = (isoString) => {
         const date = new Date(isoString);
@@ -20,7 +30,7 @@ function CommonProvider({children}) {
       };
 
     return (
-        <Common.Provider value={{data, setData, formatDate }}>
+        <Common.Provider value={{data, setData, formatDate, userRole, setUserRole}}>
             {children}
         </Common.Provider>
     )

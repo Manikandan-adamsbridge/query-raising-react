@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './auth.css'
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -9,11 +9,13 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { Common } from '../../contextapi/common';
 
 
 function LoginPage() {
 
   const navigate = useNavigate();
+  const { setUserRole } = useContext(Common);
 
   const[userDetails, setUserDetails] = useState({
     emailid: "",
@@ -21,6 +23,9 @@ function LoginPage() {
   })
   const url = "http://localhost:3000/auth/login";
 
+  useEffect(() => {
+    localStorage.clear();
+  },[])
 
   async function login() {
     try {
@@ -30,6 +35,8 @@ function LoginPage() {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("userDetails", response.data.userData);
         localStorage.setItem("userId", response.data.userData._id)
+        localStorage.setItem("userRole", response.data.userData.role)
+        setUserRole(response.data.userData.role)
         navigate('/')
       } 
 

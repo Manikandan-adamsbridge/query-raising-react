@@ -17,6 +17,9 @@ import Sidebar from './components/sidebar/Sidebar';
 import MentorDasboard from './pages/mentordashboard/MentorDasboard';
 import { CommonProvider } from './contextapi/common'
 import QueryFeeds from './pages/queryfeeds/QueryFeeds';
+import ProtectedRoutes from './shared/authShared/protectedRoutes';
+import DefaultRoutes from './shared/authShared/DefaultRoutes';
+
 
 
 
@@ -43,13 +46,27 @@ function MainLayout() {
       <div className="content">
         {!hideNavbarRoutes.includes(location.pathname) && <TopNavBar />}
         <Routes>
-          <Route path='/' element={<HomePage />} />
-          <Route path='/login' element={<LoginPage />} />
+
+          {/* Public Routes */}
+          <Route path="/login" element={<LoginPage />} />
           <Route path='/register' element={<SignUpPage />} />
-          <Route path='/query/:id' element={<ViewQuery />} />
-          <Route path='/raiseQuery' element={<CreateQuery />} />
-          <Route path='/mentorDashboard' element={<MentorDasboard />} />
-          <Route path='/queryFeeds' element={<QueryFeeds />} />
+
+          {/* Default Redirect Route */}
+          <Route path="/" element={<DefaultRoutes />} />
+
+           {/* Student-Only Routes */}
+           <Route element={<ProtectedRoutes allowedRoles={["student"]} />}>
+            <Route path='/home' element={<HomePage />} />
+            <Route path="/raiseQuery" element={<CreateQuery />} />
+            <Route path='/query/:id' element={<ViewQuery />} />
+          </Route>
+
+          {/* Mentor-Only Routes */}
+          <Route element={<ProtectedRoutes allowedRoles={["mentor"]} />}>
+            <Route path="/mentorDashboard" element={<MentorDasboard />} />
+            <Route path='/queryFeeds' element={<QueryFeeds />} />
+          </Route>
+  
       </Routes>
       </div>
       </>
