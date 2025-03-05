@@ -1,11 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Sidebar.css'
 import { faClipboard } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAddressBook, faBarsProgress, faBook, faCalendarDays, faHouse, faListCheck, faSquarePlus, faUserPen } from '@fortawesome/free-solid-svg-icons';
+import { faAddressBook, faBarsProgress, faBook, faCalendarDays, faCertificate, faHouse, faListCheck, faSchool, faSquarePlus, faUserPen } from '@fortawesome/free-solid-svg-icons';
 
 
 function Sidebar() {
+
+    const[menuItems, setMenuItems] = useState([]);
+
+    useEffect(() => {
+        const userRole = localStorage.getItem('userRole');
+        if(userRole === 'student'){
+            setMenuItems(studentMenuItems);
+        }
+        if(userRole === 'mentor'){
+            setMenuItems(mentorMenuItems);
+        }
+    },[])
+
+
+    const studentMenuItems = [
+        { mName: 'Class', mIcon: faSchool, link: '/class' },
+        { mName: 'Query', mIcon: faAddressBook, link: '/home' },
+        { mName: 'Create Query', mIcon: faSquarePlus, link: '/raiseQuery' },
+        { mName: 'Task', mIcon: faListCheck, link: '/task' },
+        { mName: 'Certificate', mIcon: faCertificate, link: '/certificate' },
+        { mName: 'Interview Task', mIcon: faBarsProgress, link: '/interviewTask' },
+        { mName: 'Testimonial', mIcon: faUserPen, link: '/testimonial' },
+        { mName: 'Project', mIcon: faAddressBook, link: '' },
+        { mName: 'Leave Application', mIcon: faCalendarDays, link: '' }
+    ];
+
+    const mentorMenuItems = [
+        { mName: 'Dashboard', mIcon: faHouse, link: '/mentorDashboard' },
+        { mName: 'Query Feeds', mIcon: faSquarePlus, link: '/queryFeeds' },
+        { mName: 'Query', mIcon: faAddressBook, link: '' },
+        { mName: 'Class', mIcon: faCalendarDays, link: '' },
+        { mName: 'Progress', mIcon: faBarsProgress, link: '' },
+        { mName: 'Edit User', mIcon: faUserPen, link: '' },
+        { mName: 'Task', mIcon: faListCheck, link: '' },
+        { mName: 'Certificate', mIcon: faBook, link: '' },
+        { mName: 'Project', mIcon: faAddressBook, link: '' },
+        { mName: 'Leave Application', mIcon: faCalendarDays, link: '' }
+    ];
+    
+
+
   return (
     <>
         <div className="container">
@@ -15,46 +56,12 @@ function Sidebar() {
                         <img src='../../../public/zen-logo.png' alt='logo-img' className='logo-zen'></img>
                         <span className="text">Student</span>
                     </div>
-                    <div className="menu-item">
-                        <FontAwesomeIcon icon={faHouse} className="icon-s"/>
-                        <span className="text">Home</span>
-                    </div>
-                    <div className="menu-item">
-                        <FontAwesomeIcon icon={faSquarePlus} className="icon-s"/>
-                        <span className="text">Create Query</span>
-                    </div>
-                    <div className="menu-item">
-                        <FontAwesomeIcon icon={faAddressBook} className="icon-s"/>
-                        <span className="text">Query</span>
-                    </div>
-                    <div className="menu-item">
-                        <FontAwesomeIcon icon={faCalendarDays} className="icon-s"/>
-                        <span className="text">Class</span>
-                    </div>
-                    <div className="menu-item">
-                        <FontAwesomeIcon icon={faBarsProgress} className="icon-s"/>
-                        <span className="text">Progress</span>
-                    </div>
-                    <div className="menu-item">
-                        <FontAwesomeIcon icon={faUserPen} className="icon-s"/>
-                        <span className="text">Edit User</span>
-                    </div>
-                    <div className="menu-item">
-                        <FontAwesomeIcon icon={faListCheck} className="icon-s"/>
-                        <span className="text">Task</span>
-                    </div>
-                    <div className="menu-item">
-                        <FontAwesomeIcon icon={faBook} className="icon-s"/>
-                        <span className="text">Certificate</span>
-                    </div>
-                    <div className="menu-item">
-                        <FontAwesomeIcon icon={faAddressBook} className="icon-s"/>
-                        <span className="text">project</span>
-                    </div>
-                    <div className="menu-item">
-                        <FontAwesomeIcon icon={faCalendarDays} className="icon-s"/>
-                        <span className="text">Leave Application</span>
-                    </div>
+                    {menuItems.map((menu) => (
+                        <a className="menu-item" href={menu.link}>
+                            <FontAwesomeIcon icon={menu.mIcon} className="icon-s"/>
+                            <span className="text">{menu.mName}</span>
+                        </a>
+                    ))}
                 </div>
             </div>
         </div>

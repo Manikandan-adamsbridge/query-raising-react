@@ -11,7 +11,7 @@ function DefaultRoutes() {
     }, [userRole]);
 
     if (role === "student") {
-        return <Navigate to='/home' replace />;
+        return <Navigate to='/class' replace />;
     } else if (role === "mentor") {
         return <Navigate to='/mentorDashboard' replace />;
     } else {

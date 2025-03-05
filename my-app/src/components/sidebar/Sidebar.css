@@ -16,6 +16,9 @@
     align-items: center;
     flex-direction: column;
     padding: 1rem 0; 
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
 }
 .sidebar:hover{
     width: 200px;
@@ -40,6 +43,7 @@
     padding: 0.5rem 1rem;
     cursor: pointer;
     transition: background-color 0.2s ease;
+    text-decoration: none;
   }
   
   .menu-item:hover {
