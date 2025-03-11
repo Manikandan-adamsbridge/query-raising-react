@@ -2,9 +2,10 @@ import React from 'react';
 import './Classes.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 function Classes() {
-
+  
     const dailyClasses = [
         {
           day: 1,
@@ -278,12 +279,14 @@ function Classes() {
           }
       ];
 
+      const navigate = useNavigate();
+
   return (
     <div className='container-fluid'>
         <div className="row">
             <div className="col-12 p-0">
                 <div className="top-bar">
-                    <button className='border-button'>+ Raise Query</button>
+                    <button className='border-button' onClick={()=> navigate("/raiseQuery")}>+ Raise Query</button>
                 </div>
             </div>
         </div>
@@ -318,11 +321,11 @@ function Classes() {
                     <div className="accordion" id="accordionExample">
                         <div className="accordion-item">
                             <h2 className="accordion-header">
-                            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                 https://docs.google.com/document/d/1ft6tjqQj6dsLbHJ1t2fPHgTQRSZwAE-qBzlxqTqWezw/edit#
                             </button>
                             </h2>
-                            <div id="collapseOne" className="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                            <div id="collapseOne" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                             <div className="accordion-body">
                                 <div className='d-flex align-items-center gap-2'>
                                     <h6 className='m-0'>Tags</h6>
