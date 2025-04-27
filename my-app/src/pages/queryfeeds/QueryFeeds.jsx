@@ -174,8 +174,10 @@ function QueryFeeds() {
                     </div>
 
                     <div className="r-btn d-flex justify-content-center gap-3 mt-5">
+                    {selectedQuery.status === 'unassigned' &&
                         <button className='primary-button-large' onClick={() => assignQuery(selectedQuery._id)}>Pick Up Query</button>
-                        <button className='primary-button-large' onClick={() => redirectToViewQuery(selectedQuery._id)}>View Query</button>
+                    }
+                    <button className='primary-button-large' onClick={() => redirectToViewQuery(selectedQuery._id)}>View Query</button>
                     </div>
 
                 </div>
