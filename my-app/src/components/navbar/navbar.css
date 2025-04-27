@@ -25,3 +25,16 @@
     color: var(--text-black);
     margin: 0;
 }
+
+.profile-image{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.profile-avatar{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+}

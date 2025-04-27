@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './CreateQuery.css';
 import Form from 'react-bootstrap/Form';
 import { Calendar } from 'primereact/calendar';
@@ -19,6 +19,8 @@ function CreateQuery() {
         fromTime: null,
         toTime: null
     });
+
+    const [userDetails , setUserDetails] = useState({});
 
     // Function to handle input changes
     const handleChange = (e) => {
@@ -44,7 +46,10 @@ function CreateQuery() {
             availableTime: {
                 from: query.fromTime,
                 till: query.toTime
-            }
+            },
+            course_id: userDetails.student_batch_id.course_id._id,
+            batch_id: userDetails.student_batch_id._id
+
         } 
 
         const response = await axios.post(url, payload);
@@ -65,6 +70,11 @@ function CreateQuery() {
         console.log("Error while creating Query", error)
        }
     };
+
+   useEffect(() => {
+    setUserDetails(JSON.parse(localStorage.getItem("userDetails")));
+    console.log(userDetails);
+   },[])
 
     return (
         <>

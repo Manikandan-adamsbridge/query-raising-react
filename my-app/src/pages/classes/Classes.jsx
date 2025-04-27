@@ -350,7 +350,7 @@ function Classes() {
 
             <div className="col-4">
                 <div className="card-class">
-                    <div className="card-header">Sessions Roadmap</div>
+                    <div className="card-header">Sessions Roadmaps</div>
                     <div className="class-container">
                         { dailyClasses.map((cls, index) => (
                             <div key={index} className="class-round">

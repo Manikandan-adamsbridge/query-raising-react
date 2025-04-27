@@ -13,7 +13,7 @@ import { useContext } from 'react';
 function QueryFeeds() {
 
     const navigate = useNavigate();
-    const url = "http://localhost:3000/ticket/getAllQueries";
+    const url = "http://localhost:3000/ticket";
     const { formatDate } = useContext(Common);
 
     const[allQueries, setAllQueries] = useState([]);
@@ -24,7 +24,7 @@ function QueryFeeds() {
     async function getAllQueries() {
         try {
             
-            const response = await axios.get(url);
+            const response = await axios.get(`${url}/getAllQueries`);
             setAllQueries(response.data.data);
             setSelectedQuery(response.data.data[0])
             
@@ -53,6 +53,19 @@ function QueryFeeds() {
           setFilteredData(allQueries); 
         }
       };
+
+      const assignQuery = async (queryId) => {
+        const payload = {
+            queryId: queryId,
+            mentorId: localStorage.getItem("userId"),
+        }
+        const response = axios.post(`${url}/assignQuery`, payload);
+        console.log(response.data)
+      }
+
+      function redirectToViewQuery(queryId) {
+        navigate(`/query/${queryId}`)
+      }
 
     useEffect(() => {
         getAllQueries()
@@ -133,7 +146,7 @@ function QueryFeeds() {
                         </div>
                         <div className='text-end'> 
                             <span className='sub-text-r'>Assigned to:</span><br/>
-                            <span className='sub2-text-r'>{!selectedQuery.assigned_to ? 'Not Assigned' : selectedQuery.assigned_to}</span>
+                            <span className='sub2-text-r'>{!selectedQuery.assigned_to ? 'Not Assigned' : selectedQuery.assigned_to.firstname + " " + selectedQuery.assigned_to.lastname}</span>
                         </div>
                     </div>
 
@@ -160,8 +173,9 @@ function QueryFeeds() {
                         </div>
                     </div>
 
-                    <div className="r-btn d-flex justify-content-center mt-5">
-                        <button className='primary-button-large'>Pick Up Query</button>
+                    <div className="r-btn d-flex justify-content-center gap-3 mt-5">
+                        <button className='primary-button-large' onClick={() => assignQuery(selectedQuery._id)}>Pick Up Query</button>
+                        <button className='primary-button-large' onClick={() => redirectToViewQuery(selectedQuery._id)}>View Query</button>
                     </div>
 
                 </div>

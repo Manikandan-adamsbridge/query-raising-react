@@ -33,7 +33,9 @@ function LoginPage() {
       const response = await axios.post(url, userDetails);
       if(response.data.message === "User loggedin successfully"){
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userDetails", response.data.userData);
+        localStorage.setItem("userDetails", JSON.stringify(response.data.userData));
+        // console.log(response.data.userData)
+        // console.log(response.data)
         localStorage.setItem("userId", response.data.userData._id)
         localStorage.setItem("userRole", response.data.userData.role)
         setUserRole(response.data.userData.role)

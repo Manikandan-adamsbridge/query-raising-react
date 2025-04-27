@@ -1,0 +1,47 @@
+.user-container{
+    height: 84dvh;
+    border-radius: 15px;
+    background-color: var(--light-primary-color-bg);
+}
+
+.Aprofile-avatar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+.Aprofile-image{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-top: 20px;
+}
+.details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+  }
+  
+  .detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .label {
+    flex: 1;
+    text-align: left;
+    font-size: .9rem;
+  }
+  
+  .value {
+    flex: 1;
+    text-align: left;
+    font-size: .9rem;
+  }
+
+  .education-container{
+    padding: 15px;
+    border-radius: 15px;
+    background-color: var(--light-primary-color-bg);
+  }

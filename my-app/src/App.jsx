@@ -26,6 +26,7 @@ import UserCertificates from './pages/usercertificate/UserCertificates';
 import Testimonial from './pages/testimonial/Testimonial';
 import InterviewTasks from './pages/interviewtask/InterviewTasks';
 import Task from './pages/task/Task';
+import ProfilePage from './pages/profilepage/ProfilePage';
 
 
 
@@ -65,7 +66,6 @@ function MainLayout() {
            <Route element={<ProtectedRoutes allowedRoles={["student"]} />}>
             <Route path='/home' element={<HomePage />} />
             <Route path="/raiseQuery" element={<CreateQuery />} />
-            <Route path='/query/:id' element={<ViewQuery />} />
             <Route path='/class' element={<Classes />} />
             <Route path='/certificate' element={<UserCertificates />} />
             <Route path='/testimonial' element={<Testimonial />} />
@@ -78,6 +78,12 @@ function MainLayout() {
             <Route path="/mentorDashboard" element={<MentorDasboard />} />
             <Route path='/queryFeeds' element={<QueryFeeds />} />
           </Route>
+
+           {/* Common Routes */}
+            <Route element={<ProtectedRoutes allowedRoles={["mentor", "student"]} />}>
+              <Route path="/MyAccount" element={<ProfilePage />} />
+              <Route path='/query/:id' element={<ViewQuery />} />
+            </Route>
   
       </Routes>
       </div>

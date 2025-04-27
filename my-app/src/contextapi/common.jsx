@@ -1,9 +1,12 @@
 import React, { createContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 
 const Common = createContext();
 
 function CommonProvider({children}) {
+
+  const navigate = useNavigate();
 
     const [data, setData] = useState(4);
     const [userRole, setUserRole] = useState(localStorage.getItem("userRole") || null);
@@ -29,8 +32,14 @@ function CommonProvider({children}) {
         });
       };
 
+      const logout = () => {
+        localStorage.clear()
+        navigate('/login')
+  
+      }  
+
     return (
-        <Common.Provider value={{data, setData, formatDate, userRole, setUserRole}}>
+        <Common.Provider value={{data, setData, formatDate, userRole, setUserRole, logout}}>
             {children}
         </Common.Provider>
     )
