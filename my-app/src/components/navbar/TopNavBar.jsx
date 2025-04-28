@@ -23,7 +23,7 @@ function TopNavBar() {
               <h5 className='profile-name d-none d-md-block'>{userData.firstname+ " " +userData.lastname}</h5>
               <div class="dropdown dropstart">
                 <div className="profile-avatar" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src='\public\profile-img.png' alt='profile' className='profile-image' />
+                  <img src='\profile-img.png' alt='profile' className='profile-image' />
                 </div>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="/MyAccount">My Account</a></li>
