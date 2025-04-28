@@ -5,6 +5,7 @@ import { faCircleUser, faPaperPlane, faStar } from '@fortawesome/free-solid-svg-
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Common } from '../../contextapi/common';
+import socket from '../../socket';
 
 
 function ViewQuery() {
@@ -41,11 +42,13 @@ function ViewQuery() {
                     ticket_id: id,
                     sender: userData._id
                 }
-                const response = await axios.post(`http://localhost:3000/api/chat/send`, payload);
-                if(response.data.success) {
-                    setMessage("");
-                    getMessages();
-                }
+                // const response = await axios.post(`http://localhost:3000/api/chat/send`, payload);
+                // if(response.data.success) {
+                //     setMessage("");
+                //     getMessages();
+                // }
+                socket.emit("send_message", payload);
+                setMessage("");
             } 
 
         } catch (error) {
@@ -68,7 +71,22 @@ function ViewQuery() {
     useEffect(() => {
         getQueryByQueryId()
         getMessages();
-    },[id, url])
+
+    // Join the ticket room
+    socket.emit('join_ticket', id);
+
+    // Listen for incoming messages
+    socket.on('receive_message', (newMessage) => {
+        console.log('Received new message:', newMessage);
+        setQueryMessages((prevMessages) => [...prevMessages, newMessage]);
+    });
+
+    // Clean up when component unmounts
+    return () => {
+        socket.off('receive_message');
+    };
+
+    },[id])
 
     
   return (

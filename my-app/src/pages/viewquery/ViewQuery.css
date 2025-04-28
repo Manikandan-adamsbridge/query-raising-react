@@ -33,6 +33,7 @@
     height: 60%;
     overflow-y: auto;
     padding-top: 10px;
+    scrollbar-width: none;
 }
 .chat{
     display: flex;
