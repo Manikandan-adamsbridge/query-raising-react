@@ -1,5 +1,6 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --main-font: 'Poppins', sans-serif;
+  /* --main-font: 'Wanted Sans Variable', sans-serif; */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -8,3 +9,7 @@
   scrollbar-color: #c9b7e8 #f7f5fc !important;
 }
 
+body {
+  font-family: var(--main-font);
+  line-height: 1.5;
+}

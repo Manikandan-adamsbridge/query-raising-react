@@ -229,10 +229,14 @@
     font-weight: 600;
     color: var(--text-black);
 }
-
-.common-input:focus{
+.common-input::placeholder{
+    color: rgb(197, 197, 197) !important;
+    font-weight: 400 !important;
+}
+.common-input:focus, .common-input:focus-visible{
     border-color: var(--zen-primary-color) !important;
     box-shadow: none !important;
+    outline: none !important;
 }
 
 /* time picker */

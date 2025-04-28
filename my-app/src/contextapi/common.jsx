@@ -10,6 +10,7 @@ function CommonProvider({children}) {
 
     const [data, setData] = useState(4);
     const [userRole, setUserRole] = useState(localStorage.getItem("userRole") || null);
+    const[userData, setUserData] = useState(JSON.parse(localStorage.getItem("userDetails")) || null);
 
     useEffect(() => {
       if (userRole) {
@@ -32,14 +33,38 @@ function CommonProvider({children}) {
         });
       };
 
+      const formatShortDate = (isoString) => {
+        const date = new Date(isoString);
+        return date.toLocaleString('en-US', {
+          month: 'short', 
+          day: 'numeric',
+          hour: 'numeric', 
+          minute: 'numeric', 
+          hour12: true, 
+        });
+      };  
+
       const logout = () => {
         localStorage.clear()
         navigate('/login')
-  
-      }  
+      } 
+
+      const handleBackClick = () => {
+        navigate(-1); 
+      }; 
 
     return (
-        <Common.Provider value={{data, setData, formatDate, userRole, setUserRole, logout}}>
+        <Common.Provider value={{
+          data, 
+          setData, 
+          formatDate, 
+          userRole, 
+          setUserRole, 
+          logout, 
+          userData,
+          handleBackClick,
+          formatShortDate
+        }}>
             {children}
         </Common.Provider>
     )

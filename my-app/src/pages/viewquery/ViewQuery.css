@@ -20,7 +20,8 @@
     text-align: left;
     border: var(--light-border);
     margin-bottom: 10px;
-    width: 80%;
+    max-width: 80%;
+    min-width: 20%;
     border-radius: 5px 12px 12px 12px;
     position: relative;
 }
@@ -29,11 +30,23 @@
     display: flex;
     justify-content: start;
     flex-direction: column;
+    height: 60%;
+    overflow-y: auto;
+    padding-top: 10px;
 }
 .chat{
     display: flex;
     justify-content: start;
     margin-top: 10px;
+}
+.own-chat{
+    display: flex;
+    justify-content: end;
+    .chat-message{    
+        border-radius: 12px 5px 12px 12px;
+        margin-top: 10px;
+        background-color: var(--light-primary-color-bg-hover);
+    }
 }
 
 .time{
@@ -87,4 +100,16 @@
     align-items: center;
     padding: 20px 5px;
     border-bottom: var(--light-border);
+}
+.chat-input{
+    margin-bottom: 20px;
+    input{
+        position: relative;
+    }
+    .input-icon{
+        position: absolute;
+        top: 11px;
+        right: 10px;  
+        cursor: pointer; 
+    }
 }
