@@ -131,7 +131,7 @@ function HomePage() {
                     </div>
                     <div className='text-end'>
                       <span className='sub-text-r'>Assigned to:</span><br/>
-                      <span className='sub2-text-r'>{!queryData[0].assigned_to ? 'Not Assigned' : queryData[0].assigned_to}</span>
+                      <span className='sub2-text-r'>{!queryData[0].assigned_to ? 'Not Assigned' : queryData[0].assigned_to.firstname + ' ' + queryData[0].assigned_to.lastname}</span>
                     </div>
                   </div>
                   <div className="r-bottom mt-3">

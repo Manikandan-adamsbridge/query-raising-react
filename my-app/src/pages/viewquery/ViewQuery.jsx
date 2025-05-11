@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import './ViewQuery.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleUser, faPaperPlane, faStar } from '@fortawesome/free-solid-svg-icons'
@@ -17,6 +17,7 @@ function ViewQuery() {
     const[query, setQuery] = useState({})
     const [message, setMessage] = useState("");
     const [ queryMessages, setQueryMessages] = useState([]);
+    const chatsRef = useRef(null);
 
     const handleInputChange = (e) => {
         setMessage(e.target.value); 
@@ -34,6 +35,26 @@ function ViewQuery() {
         }
     }
 
+    async function closeQuery() {
+        try {
+            
+            const payload = {
+                queryId: id,
+                querySolution: "Query has been closed",
+            }
+
+            const response = await axios.post(`http://localhost:3000/ticket/closeQuery`, payload);
+
+            if(response.data.message === "Query closed successfully") {
+                getQueryByQueryId()
+                getMessages();
+            }
+
+        } catch (error) {
+            console.log("error while closing query", error)
+        }
+    }
+
     async function sendMessage() {
         try {
             if(message) {
@@ -48,6 +69,7 @@ function ViewQuery() {
                 //     getMessages();
                 // }
                 socket.emit("send_message", payload);
+                
                 setMessage("");
             } 
 
@@ -77,8 +99,9 @@ function ViewQuery() {
 
     // Listen for incoming messages
     socket.on('receive_message', (newMessage) => {
-        console.log('Received new message:', newMessage);
         setQueryMessages((prevMessages) => [...prevMessages, newMessage]);
+        const chatsContainer = document.querySelector('.chats');
+        chatsContainer.scrollTop = chatsContainer.scrollHeight;
     });
 
     // Clean up when component unmounts
@@ -86,8 +109,13 @@ function ViewQuery() {
         socket.off('receive_message');
     };
 
-    },[id])
+    },[id, socket])
 
+    useEffect(() => {
+        if (chatsRef.current) {
+            chatsRef.current.scrollTop = chatsRef.current.scrollHeight;
+        }
+    }, [queryMessages]);
     
   return (
     <>
@@ -95,7 +123,7 @@ function ViewQuery() {
             <div className="row">
                 <div className="col-12 p-0">
                 <div className="top-bar">
-                    <button className='border-button' onClick={handleBackClick}>&lt; Back</button>
+                    <button className='border-button' onClick={handleBackClick}>{'<'} Back</button>
                 </div>
                 </div>
             </div>
@@ -109,13 +137,17 @@ function ViewQuery() {
 
                         <div className="chats">
                             {queryMessages.length > 0 ? queryMessages.map((message, index) => (
-                                <div key={index} className={message.sender._id === userData._id ? "own-chat" : "chat"}>
-                                    {message.sender._id !== userData._id && <FontAwesomeIcon icon={faCircleUser} className='icon-color-primary me-2' />}
+                                <div key={index} className={(message.sender?._id || message.sender) === userData._id ? "own-chat" : "chat"}>
+                                    {((message.sender?._id || message.sender) !== userData._id) && (
+                                        <FontAwesomeIcon icon={faCircleUser} className="icon-color-primary me-2" />
+                                    )}
                                     <div className="chat-message">
                                         <p>{message.message}</p>
                                         <span className='time'>{formatShortDate(message.timestamp)}</span>
                                     </div>
-                                    {message.sender._id === userData._id && <FontAwesomeIcon icon={faCircleUser} className='icon-color-primary ms-2' />}
+                                    {((message.sender?._id || message.sender) === userData._id) && (
+                                        <FontAwesomeIcon icon={faCircleUser} className="icon-color-primary me-2" />
+                                    )}
                                 </div>
                             )) : ( 
                                 <div className="w-100 h-100 d-flex justify-content-center align-items-center flex-column">
@@ -240,6 +272,12 @@ function ViewQuery() {
                                 <span className='sub-text-r'>Preferred Language:</span><br/>
                                 <span className='ms-1 sub2-text-r'>{query.language_preference}</span>
                             </div>
+                        </div>
+
+                        <div className="d-flex justify-content-center mt-4">
+                            {query.status === 'assigned' && query.assigned_to._id === userData._id && (
+                                <button className='border-button' onClick={closeQuery}>Close Query</button>
+                            )}
                         </div>
 
                     </div>
