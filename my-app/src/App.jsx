@@ -1,6 +1,7 @@
 import './App.css'
 import LoginPage from './pages/auth/LoginPage'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import SignUpPage from './pages/auth/SignUpPage';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
 import './commonstyles/variables.css';
@@ -20,13 +21,12 @@ import QueryFeeds from './pages/queryfeeds/QueryFeeds';
 import ProtectedRoutes from './shared/authShared/protectedRoutes';
 import DefaultRoutes from './shared/authShared/DefaultRoutes';
 import Classes from './pages/classes/Classes';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import UserCertificates from './pages/usercertificate/UserCertificates';
 import Testimonial from './pages/testimonial/Testimonial';
 import InterviewTasks from './pages/interviewtask/InterviewTasks';
 import Task from './pages/task/Task';
 import ProfilePage from './pages/profilepage/ProfilePage';
+import ToastMessage from './components/toastMessage/ToastMessage';
 
 
 
@@ -37,6 +37,7 @@ function App() {
   return (  
     <Router>
       <CommonProvider>
+      <ToastMessage />
         <MainLayout/>
       </CommonProvider>
     </Router>

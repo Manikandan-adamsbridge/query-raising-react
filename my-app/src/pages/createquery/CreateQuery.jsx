@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './CreateQuery.css';
 import Form from 'react-bootstrap/Form';
 import { Calendar } from 'primereact/calendar';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Common } from '../../contextapi/common';
 
 function CreateQuery() {
 
     const url = "http://localhost:3000/ticket/raiseTicket";
     const navigate = useNavigate()
+    const { setToastMessage } = useContext(Common);
 
     const [query, setQuery] = useState({
         category: "",
@@ -54,6 +56,7 @@ function CreateQuery() {
 
         const response = await axios.post(url, payload);
         if(response.data.message === "ticket created successfully" ){
+            setToastMessage("Query created successfully");
             setQuery({
                 category: "",
                 subCategory: "",

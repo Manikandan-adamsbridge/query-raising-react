@@ -14,7 +14,7 @@ function QueryFeeds() {
 
     const navigate = useNavigate();
     const url = "http://localhost:3000/ticket";
-    const { formatDate } = useContext(Common);
+    const { formatDate, setToastMessage } = useContext(Common);
 
     const[allQueries, setAllQueries] = useState([]);
     const [filteredData, setFilteredData] = useState(allQueries);
@@ -59,7 +59,12 @@ function QueryFeeds() {
             queryId: queryId,
             mentorId: localStorage.getItem("userId"),
         }
-        const response = axios.post(`${url}/assignQuery`, payload);
+        const response = await axios.post(`${url}/assignQuery`, payload);
+        if(response.data.message = 'Query assigned successfully'){
+            setToastMessage("Query Assigned to you successfully");
+            getAllQueries()
+        }
+        
         console.log(response.data)
       }
 

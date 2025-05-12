@@ -11,6 +11,7 @@ function CommonProvider({children}) {
     const [data, setData] = useState(4);
     const [userRole, setUserRole] = useState(localStorage.getItem("userRole") || null);
     const[userData, setUserData] = useState(JSON.parse(localStorage.getItem("userDetails")) || null);
+    const [toastMessage, setToastMessage] = useState(null);
 
     useEffect(() => {
       if (userRole) {
@@ -63,7 +64,9 @@ function CommonProvider({children}) {
           logout, 
           userData,
           handleBackClick,
-          formatShortDate
+          formatShortDate,
+          toastMessage,
+          setToastMessage
         }}>
             {children}
         </Common.Provider>

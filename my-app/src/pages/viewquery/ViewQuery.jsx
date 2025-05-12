@@ -12,7 +12,7 @@ function ViewQuery() {
 
     const { id } = useParams();
     const url = "http://localhost:3000/ticket/viewQuery";
-    const { formatDate, handleBackClick, formatShortDate, userData } = useContext(Common);
+    const { formatDate, handleBackClick, formatShortDate, userData, setToastMessage } = useContext(Common);
 
     const[query, setQuery] = useState({})
     const [message, setMessage] = useState("");
@@ -46,6 +46,7 @@ function ViewQuery() {
             const response = await axios.post(`http://localhost:3000/ticket/closeQuery`, payload);
 
             if(response.data.message === "Query closed successfully") {
+                setToastMessage("Query closed successfully");
                 getQueryByQueryId()
                 getMessages();
             }
@@ -53,6 +54,7 @@ function ViewQuery() {
         } catch (error) {
             console.log("error while closing query", error)
         }
+        
     }
 
     async function sendMessage() {

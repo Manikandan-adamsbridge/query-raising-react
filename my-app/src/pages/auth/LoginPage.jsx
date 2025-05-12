@@ -15,7 +15,7 @@ import { Common } from '../../contextapi/common';
 function LoginPage() {
 
   const navigate = useNavigate();
-  const { setUserRole } = useContext(Common);
+  const { setUserRole, setToastMessage } = useContext(Common);
 
   const[userDetails, setUserDetails] = useState({
     emailid: "",
@@ -40,7 +40,17 @@ function LoginPage() {
         localStorage.setItem("userRole", response.data.userData.role)
         setUserRole(response.data.userData.role)
         navigate('/')
+        setToastMessage("Login successful")
       } 
+      console.log("response",response.data)
+      if(response.data.message === "user not found"){
+        setToastMessage("User not found")
+        return
+      }
+      if(response.data.message === "Incorrect Password"){
+        setToastMessage("Invalid password")
+        return
+      }
 
     } catch (error) {
       console.error("Login failed:", error.response ? error.response.data : error.message);

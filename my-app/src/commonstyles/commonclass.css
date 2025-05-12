@@ -341,3 +341,8 @@
     }
 }
 
+.toast{
+    background-color: var(--light-primary-color) !important;
+    color: var(--zen-primary-color) !important;
+    /* border: var(--light-border) !important; */
+}
