@@ -7,6 +7,10 @@
     border: var(--light-border);
     border-radius: 8px;
 }
+.ticket-box:hover{
+    background-color: var(--light-primary-color-bg);
+    cursor: pointer;
+}
 
 .box-icon{
     position: absolute;
@@ -27,4 +31,8 @@
     color: var(--text-black);
     margin: 0;
     margin-bottom: 10px;
+}
+.active-box{
+    background-color: var(--light-primary-color-bg) !important;
+    border: 2px solid var(--zen-primary-color) !important;
 }

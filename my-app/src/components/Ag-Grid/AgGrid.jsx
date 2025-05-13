@@ -7,7 +7,7 @@ import { AllCommunityModule,  ModuleRegistry, themeQuartz } from 'ag-grid-commun
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 
-function AgGrid({ rowData, colDefs }) {
+function AgGrid({ rowData, colDefs, tableHeading }) {
 
     const myTheme = themeQuartz.withParams({
         headerHeight: '50px',
@@ -29,24 +29,24 @@ function AgGrid({ rowData, colDefs }) {
         return myTheme;
     }, []);
 
-    
-
+  
   return (
-    <div style={{ height: "65vh", width: "100%" }}>
-      <div className="ag-theme-alpine" style={{ height: "65vh", width: "100%" }}>
+    <>
+    <h5 className='fw-semibold ms-1'>{tableHeading}</h5>
+      <div className="ag-theme-alpine" >
         <AgGridReact
           rowData={rowData}
           columnDefs={colDefs}
           pagination={true} 
-          paginationPageSize={8} 
-          paginationPageSizeSelector={[8, 10, 20, 50, 100]} 
+          paginationPageSize={10} 
+          paginationPageSizeSelector={[ 10, 20, 50, 100]} 
           domLayout="autoHeight" 
           animateRows={true} 
           // rowSelection={rowSelection}
           theme={theme}
         />
       </div>
-    </div>
+    </>
   )
 }
 
