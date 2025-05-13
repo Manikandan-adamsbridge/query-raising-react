@@ -92,9 +92,10 @@ function QueryFeeds() {
                         </Dropdown.Toggle>
 
                         <Dropdown.Menu>
-                            <Dropdown.Item>Action</Dropdown.Item>
-                            <Dropdown.Item>Another action</Dropdown.Item>
-                            <Dropdown.Item>Something else</Dropdown.Item>
+                            <Dropdown.Item>All Tickets</Dropdown.Item>
+                            <Dropdown.Item>Unassigned Tickets</Dropdown.Item>
+                            <Dropdown.Item>Assigned Tickets</Dropdown.Item>
+                            <Dropdown.Item>closed Tickets</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
 

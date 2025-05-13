@@ -57,7 +57,7 @@ function MentorDasboard() {
         { field: "course", headerName: "Course", sortable: true, filter: true },
         { field: "availableFrom", headerName: "Available From", sortable: true, filter: true },
         { field: "availableTill", headerName: "Available Till", sortable: true, filter: true },
-        { field: "actions", headerName: "Actions", sortable: false, filter: false, pinned: 'right', width: 140,
+        { field: "actions", headerName: "Actions", sortable: false, filter: false, pinned: 'right', width: 100,
             cellRenderer: (params) => {
                 return (
                     <div className="action-buttons d-flex gap-3 align-items-center h-100">
@@ -152,7 +152,7 @@ function MentorDasboard() {
                         <FontAwesomeIcon icon={faGraduationCap} />
                         Query Feeds
                     </button>
-                    <InputGroup className="search-input" size="sm">
+                    {/* <InputGroup className="search-input" size="sm">
                         <InputGroup.Text id="basic-addon1">
                         <FontAwesomeIcon icon={faMagnifyingGlass} className="icon-color-light" />
                         </InputGroup.Text>
@@ -161,7 +161,7 @@ function MentorDasboard() {
                         aria-label="Search"
                         aria-describedby="basic-addon1"
                         />
-                    </InputGroup>
+                    </InputGroup> */}
                     </div>
                 </div>
             </div>

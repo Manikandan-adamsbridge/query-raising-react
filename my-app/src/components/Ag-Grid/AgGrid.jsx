@@ -1,6 +1,10 @@
 import React, { useMemo, useRef, useState } from 'react'
 import { AgGridReact } from "ag-grid-react";
 import { AllCommunityModule,  ModuleRegistry, themeQuartz } from 'ag-grid-community'; 
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 
 // Register the required module for AgGrid
@@ -32,7 +36,19 @@ function AgGrid({ rowData, colDefs, tableHeading }) {
   
   return (
     <>
-    <h5 className='fw-semibold ms-1'>{tableHeading}</h5>
+      <div className="d-flex justify-content-between align-items-end px-2">
+        <h5 className='fw-semibold'>{tableHeading}</h5>
+        <InputGroup className="search-input mb-2" size="sm">
+            <InputGroup.Text id="basic-addon1">
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="icon-color-light" />
+            </InputGroup.Text>
+            <Form.Control
+            placeholder="Search"
+            aria-label="Search"
+            aria-describedby="basic-addon1"
+            />
+        </InputGroup>
+      </div>
       <div className="ag-theme-alpine" >
         <AgGridReact
           rowData={rowData}
