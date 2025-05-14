@@ -99,6 +99,23 @@ function MentorDasboard() {
         }
     }
 
+    async function closeQuery(data) {
+        try {
+            const payload = {
+                queryId: data.id,
+                querySolution: "Query has been closed",
+            }
+            const response = await axios.post(`${url}/closeQuery`, payload);
+            if(response.data.message === "Query closed successfully") {
+                setToastMessage("Query closed successfully");
+                getAllQueries()
+                handleClose()
+            }
+        } catch (error) {
+            console.log("error while closing query", error)
+        }    
+    }
+
     async function getAllQueries() {
         try {
             
@@ -303,7 +320,7 @@ function MentorDasboard() {
                     </button>
                 )}
                 {(selectedQUery?.status == 'assigned' && selectedQUery?.assignedToId == userData._id) &&(
-                    <button className='primary-button-large ms-2' onClick={handleClose}>
+                    <button className='primary-button-large ms-2' onClick={()=>closeQuery(selectedQUery)}>
                         Close Query
                     </button>
                 )}
