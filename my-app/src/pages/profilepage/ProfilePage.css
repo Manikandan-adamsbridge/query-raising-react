@@ -1,7 +1,7 @@
   .card{
     background-color: var(--light-primary-color-bg);
   }
-  .card-header{
+  .custom-card-header{
     padding: 5px 8px !important;
     font-size: 1rem !important;
   }

@@ -32,7 +32,7 @@ function ProfilePage() {
 
             <div className="col-md-7">
                 <div class="card" style={{ height: "200px", overflow: "hidden" }}>
-                    <div class="card-header">
+                    <div class="card-header custom-card-header">
                         Course Details
                     </div>
                     <div class="card-body">
@@ -47,7 +47,7 @@ function ProfilePage() {
         <div className="row px-2">
             <div className="col-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card-header custom-card-header d-flex justify-content-between align-items-center">
                         Last Two Education Details
                         <i class="bi bi-pen-fill me-2 cursor-pointer"></i>
                     </div>
@@ -69,7 +69,7 @@ function ProfilePage() {
         <div className="row px-2">
             <div className="col-12">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card-header custom-card-header d-flex justify-content-between align-items-center">
                         Professional Experiences
                         <i class="bi bi-pen-fill me-2 cursor-pointer"></i>
                     </div>

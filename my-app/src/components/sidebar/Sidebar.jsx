@@ -54,7 +54,7 @@ function Sidebar() {
                 <div className="sidebar-content">
                     <div className="menu-logo">
                         <img src='../../../public/zen-logo.png' alt='logo-img' className='logo-zen'></img>
-                        <span className="text">Student</span>
+                        <span className="text fw-semibold fs-5">{localStorage.getItem('userRole') === 'student' ? 'Student' : 'Mentor'}</span>
                     </div>
                     {menuItems.map((menu) => (
                         <a className="menu-item" href={menu.link}>
