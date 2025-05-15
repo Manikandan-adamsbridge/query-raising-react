@@ -13,6 +13,21 @@
     border-radius: 5px;
     margin: 0;
 }
+.border-button-large{
+    background-color: white;
+    color: var(--zen-primary-color);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 15px;
+    font-size: 14px;
+    border: 2px solid var(--zen-primary-color);
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
+    border-radius: 5px;
+    margin: 0;
+}
 .border-button{
     background-color: white;
     color: var(--zen-primary-color);

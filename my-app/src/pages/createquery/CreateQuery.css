@@ -5,7 +5,7 @@
 }
 
 .query-form{
-    width: 38%;
+    width: 80%;
     padding: 10px 20px;
     border-radius: 10px;
     border: var(--light-border);
@@ -19,7 +19,7 @@
     padding-bottom: 60px !important;
 }
 .q-form{
-    width: 60%;
+    width: 90%;
 }
 .query-btns{
     position: absolute;

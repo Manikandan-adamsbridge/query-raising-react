@@ -74,7 +74,7 @@ function LoginPage() {
                 </div>
                 <div className="col-6">
                   <div className="login-form">
-                  <h4 className='text-center text-primary h-text'>Zen Query Ticketing System</h4>
+                  <h4 className='text-center icon-color-primary h-text'>Zen Query Ticketing System</h4>
         
                     <InputGroup className="mb-4" type="email">
                       <InputGroup.Text>
@@ -91,19 +91,19 @@ function LoginPage() {
                     </InputGroup>
 
                     <div className="sub d-flex justify-content-end me-2 mb-4">
-                        <a href="#" className='text-link'>Forgot password?</a>
+                        <a href="#" className='text-link icon-color-primary'>Forgot password?</a>
                       </div>
 
                     <div className="btn-container mb-4">
-                      <Button variant="outline-dark" className='w-100'>
+                      <button className='border-button-large w-100'>
                         <FontAwesomeIcon icon={faGoogle} />
-                      </Button>
-                      <Button variant="primary" className='w-100' onClick={()=> login()}>Login</Button>
+                      </button>
+                      <button className='w-100 primary-button-large' onClick={()=> login()}>Login</button>
                     </div>
 
-                    <div className="footer-container ">
+                    {/* <div className="footer-container ">
                      <p className='fw-semibold'>First time here? <a href='/register' className='text-primary text-link'>Sign up for free</a></p>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
