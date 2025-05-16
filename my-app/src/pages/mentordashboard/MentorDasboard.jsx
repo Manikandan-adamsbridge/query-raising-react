@@ -27,6 +27,9 @@ function MentorDasboard() {
     })
     const [selectedQUery, setSelectedQuery] = useState(null);
     const [show, setShow] = useState(false);
+    const [showCloseConfirm, setShowCloseConfirm] = useState(false);
+    const [solution, setSolution] = useState("");
+    
  
     // Column Definitions
     const [colDefs, setColDefs] = useState([
@@ -101,15 +104,20 @@ function MentorDasboard() {
 
     async function closeQuery(data) {
         try {
+            if(!solution) {
+                setToastMessage("Please enter a solution to close the query");
+                return;
+            }
             const payload = {
                 queryId: data.id,
-                querySolution: "Query has been closed",
+                querySolution: solution,
             }
             const response = await axios.post(`${url}/closeQuery`, payload);
             if(response.data.message === "Query closed successfully") {
                 setToastMessage("Query closed successfully");
                 getAllQueries()
                 handleClose()
+                setSolution("");
             }
         } catch (error) {
             console.log("error while closing query", error)
@@ -159,8 +167,8 @@ function MentorDasboard() {
                 subCategory: item.sub_category,
                 status: item.status,
                 language: item.language_preference,
-                availableFrom: new Date(item.availableTime.from).toLocaleString(),
-                availableTill: new Date(item.availableTime.till).toLocaleString(),
+                availableFrom: new Date(item.availableTime.from).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
+                availableTill: new Date(item.availableTime.till).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),
                 raisedBy: item.raised_by? `${item.raised_by.firstname ?? ''} ${item.raised_by.lastname ?? ''}`.trim(): 'Unassigned',
                 assignedTo: item.assigned_to? `${item.assigned_to.firstname ?? ''} ${item.assigned_to.lastname ?? ''}`.trim(): 'Unassigned',
                 assignedToId: item.assigned_to? item.assigned_to._id : "",
@@ -187,7 +195,13 @@ function MentorDasboard() {
     }
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {setShow(true)};
+
+    const handleCloseConfirm = () => setShowCloseConfirm(false);
+    const handleShowConfirm = () => {
+        handleClose();
+        setShowCloseConfirm(true)
+    };
 
     useEffect(()=>{
         getAllQueries();
@@ -320,12 +334,35 @@ function MentorDasboard() {
                     </button>
                 )}
                 {(selectedQUery?.status == 'assigned' && selectedQUery?.assignedToId == userData._id) &&(
-                    <button className='primary-button-large ms-2' onClick={()=>closeQuery(selectedQUery)}>
+                    <button className='primary-button-large ms-2' onClick={()=>handleShowConfirm()}>
                         Close Query
                     </button>
                 )}
             </Modal.Footer>
         </Modal>
+
+        <Modal show={showCloseConfirm} onHide={handleCloseConfirm} centered>
+            <Modal.Header closeButton>
+                <Modal.Title className='icon-color-primary'>Query Id: {selectedQUery?.id.slice(-7).toUpperCase()}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div className="px-2">
+                    <h5 className='text-center sub-text-r'>Enter Solution to close this Query</h5>
+                    <div className="d-flex justify-content-center mt-3">
+                        <textarea value={solution} onChange={(e) => setSolution(e.target.value)} className='common-input w-100' rows={5} placeholder='Type your solution here...'/>
+                    </div>    
+                </div>     
+            </Modal.Body>
+            <Modal.Footer>
+                <button className='primary-button-large' onClick={handleCloseConfirm}>
+                    Close
+                </button>
+                <button className='primary-button-large ms-2' onClick={()=>closeQuery(selectedQUery)}>
+                    Close Query
+                </button>
+            </Modal.Footer>
+        </Modal>
+
     </>
   )
 }

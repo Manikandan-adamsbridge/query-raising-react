@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Common } from '../../contextapi/common';
 import socket from '../../socket';
-
+import Modal from 'react-bootstrap/Modal';
 
 function ViewQuery() {
 
@@ -18,6 +18,12 @@ function ViewQuery() {
     const [message, setMessage] = useState("");
     const [ queryMessages, setQueryMessages] = useState([]);
     const chatsRef = useRef(null);
+    const [show, setShow] = useState(false);
+    const [solution, setSolution] = useState("");
+
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const handleInputChange = (e) => {
         setMessage(e.target.value); 
@@ -35,12 +41,21 @@ function ViewQuery() {
         }
     }
 
+    // function confirmCloseQuery() {
+    //     handleShow();
+    // }
+
     async function closeQuery() {
         try {
+
+            if(!solution) {
+                setToastMessage("Please enter a solution to close the query");
+                return;
+            }
             
             const payload = {
                 queryId: id,
-                querySolution: "Query has been closed",
+                querySolution: solution,
             }
 
             const response = await axios.post(`http://localhost:3000/ticket/closeQuery`, payload);
@@ -49,12 +64,56 @@ function ViewQuery() {
                 setToastMessage("Query closed successfully");
                 getQueryByQueryId()
                 getMessages();
+                setSolution("");
+                handleClose();
             }
 
         } catch (error) {
             console.log("error while closing query", error)
         }
         
+    }
+
+    async function dropQuery() {
+        try {
+            
+            const payload = {
+                queryId: id,
+            }
+
+            const response = await axios.post(`http://localhost:3000/ticket/dropQuery`, payload);
+
+            if(response.data.message === "Query droped successfully") {
+                setToastMessage("Query Droped successfully");
+                getQueryByQueryId()
+                getMessages();
+            }
+
+        } catch (error) {
+            console.log("error while closing query", error)
+        }
+        
+    }
+
+    async function assignQuery() {
+        try {
+            
+            const payload = {
+                queryId: id,
+                mentorId: userData._id
+            }
+
+            const response = await axios.post(`http://localhost:3000/ticket/assignQuery`, payload);
+
+            if(response.data.message === "Query assigned successfully") {
+                setToastMessage("Query assigned successfully");
+                getQueryByQueryId()
+                getMessages();
+            }
+
+        } catch (error) {
+            console.log("error while assigning query", error)
+        }
     }
 
     async function sendMessage() {
@@ -133,7 +192,7 @@ function ViewQuery() {
             <div className="row">
                 <div className="col-6 vertical-line">
                     <div className="chat-container">
-                        <div className="d-flex justify-content-end align-items-center mt-3">
+                        <div className="d-flex justify-content-end align-items-center pb-2">
                         <span className={`query-status ${query.status === 'unassigned' ? 'unassigned' : query.status === 'assigned' ? 'assigned' : 'closed'}`}>{query.status}</span>
                         </div>
 
@@ -209,16 +268,18 @@ function ViewQuery() {
 
                            {query.status === 'assigned' && (
                              <div className="chat-input">
-                                <input value={message} onChange={handleInputChange} className='common-input w-100' type="text" placeholder='Type your message here...' />
+                                <input value={message} onChange={handleInputChange} className='common-input w-100' type="text" placeholder='Type your message here...' onKeyDown={(e) => {if (e.key === 'Enter' && message.trim()) {sendMessage();}}}/>
                                 <FontAwesomeIcon disabled={!message} icon={faPaperPlane} className='icon-color-primary me-2 fs-5 input-icon' onClick={sendMessage}/>
                              </div>
                            )}
 
-                            <div className="solution">
-                                <p>Solution</p>
-                                <span>Given the solution for his concern</span>
-                            </div>
-                            <div className="rating-div">
+                            {query.status === 'closed' && (
+                                <div className="solution">
+                                    <p>Solution</p>
+                                    <span>{query.solution}</span>
+                                </div>
+                            )}
+                            {/* <div className="rating-div">
                                 <div className="rating-icons d-flex justify-content-between gap-1">
                                     <FontAwesomeIcon icon={faStar} className='icon-color-light'/>
                                     <FontAwesomeIcon icon={faStar} className='icon-color-light'/>
@@ -227,7 +288,7 @@ function ViewQuery() {
                                     <FontAwesomeIcon icon={faStar} className='icon-color-light'/>
                                 </div>
                                 <p>Your Feedback</p>
-                            </div>
+                            </div> */}
                         </div>
 
                     </div>
@@ -276,11 +337,19 @@ function ViewQuery() {
                             </div>
                         </div>
 
-                        <div className="d-flex justify-content-center mt-4">
+                        {userData.role === 'mentor' && (
+                            <div className="d-flex justify-content-center mt-4">
                             {query.status === 'assigned' && query.assigned_to._id === userData._id && (
-                                <button className='border-button' onClick={closeQuery}>Close Query</button>
+                                <div className="d-flex gap-2"> 
+                                    <button className='border-button' onClick={handleShow}>Close Query</button>
+                                    <button className='border-button' onClick={dropQuery}>Drop Query</button>
+                                </div>
+                            )}
+                            {query.status === 'unassigned' && (
+                                <button className='border-button' onClick={assignQuery}>Pick Query</button>
                             )}
                         </div>
+                        )}
 
                     </div>
                 ) : <p>No Queries Found</p>}
@@ -289,6 +358,31 @@ function ViewQuery() {
 
             </div>
         </div>
+
+
+        <Modal show={show} onHide={handleClose} centered>
+            <Modal.Header closeButton>
+                <Modal.Title className='icon-color-primary'>Query Id: {query?._id?.slice(-7)}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div className="px-2">
+                    <h5 className='text-center sub-text-r'>Enter Solution to close this Query</h5>
+                    <div className="d-flex justify-content-center mt-3">
+                        <textarea value={solution} onChange={(e) => setSolution(e.target.value)} className='common-input w-100' rows={5} placeholder='Type your solution here...'/>
+                    </div>    
+                </div>     
+            </Modal.Body>
+            <Modal.Footer>
+                <button className='primary-button-large' onClick={handleClose}>
+                    Close
+                </button>
+                <button className='primary-button-large ms-2' onClick={()=>closeQuery()}>
+                    Close Query
+                </button>
+            </Modal.Footer>
+        </Modal>
+
+
     </>
   )
 }

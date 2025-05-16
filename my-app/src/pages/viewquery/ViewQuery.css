@@ -30,7 +30,7 @@
     display: flex;
     justify-content: start;
     flex-direction: column;
-    height: 60%;
+    height: 80%;
     overflow-y: auto;
     padding-top: 10px;
     scrollbar-width: none;
@@ -77,8 +77,8 @@
 }
 
 .solution{
-    border-bottom: var(--light-border);
-    padding-bottom: 10px !important;
+    border-top: var(--light-border);
+    padding-top: 10px !important;
     padding: 0 5px;
 }
 
@@ -103,7 +103,7 @@
     border-bottom: var(--light-border);
 }
 .chat-input{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     input{
         position: relative;
     }

@@ -100,7 +100,9 @@
     justify-content: start;
     padding-left: 8px;
     cursor: pointer;
+    border-bottom: var(--light-border);
     transition: background-color 0.2s ease;
+    padding-bottom: 23px;
     .text{
       color: var(--zen-primary-color);
     }
