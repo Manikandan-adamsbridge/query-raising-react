@@ -21,7 +21,7 @@
     scrollbar-width: none;
 }
 .sidebar:hover{
-    width: 200px;
+    width: 250px;
     -webkit-transform: translateZ(0) scale(1);
     -webkit-transition: width .3s ease;
 }

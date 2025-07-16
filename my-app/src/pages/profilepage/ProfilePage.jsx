@@ -52,15 +52,15 @@ function ProfilePage() {
                         <i class="bi bi-pen-fill me-2 cursor-pointer"></i>
                     </div>
                     <div class="card-body d-flex justify-content-between align-items-center">
-                        <div className='w-50 vertical-line h-100 text-center'>
+                        <div className='w-50 vertical-line h-100'>
                             <h5 class="card-title zen-primary-text">Master of Computer Applications <span className="text-body-secondary" style={{fontSize: "0.8rem"}}>(2020 - 2022)</span></h5>
                             <p className="text-body-secondary mb-1">Scott Christian College</p>
-                            <p style={{fontSize: "0.9rem"}} className='px-4'>Completed undergraduate program focused on computer applications, Gained exposure to core IT concepts and developed interest in programming and coding practices</p>
+                            <p style={{fontSize: "0.9rem"}} className='px-2'>Completed undergraduate program focused on computer applications, Gained exposure to core IT concepts and developed interest in programming and coding practices</p>
                         </div>
-                        <div className='w-50 h-100 text-center'>
+                        <div className='w-50 h-100 ms-3'>
                             <h5 class="card-title zen-primary-text">Bachelour of Computer Applications <span className="text-body-secondary" style={{fontSize: "0.8rem"}}>(2020 - 2022)</span></h5>
                             <p className="text-body-secondary mb-1">Scott Christian College</p>
-                            <p style={{fontSize: "0.9rem"}} className='px-4'>Completed undergraduate program focused on computer applications, Gained exposure to core IT concepts and developed interest in programming and coding practices</p>
+                            <p style={{fontSize: "0.9rem"}} className='px-2'>Completed undergraduate program focused on computer applications, Gained exposure to core IT concepts and developed interest in programming and coding practices</p>
                         </div>
                     </div>
                 </div>

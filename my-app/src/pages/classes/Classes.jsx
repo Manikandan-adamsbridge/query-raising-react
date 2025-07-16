@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Classes.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+import ModalComponent from '../../components/modal/ModalComponent';
 
 function Classes() {
   
@@ -281,6 +282,35 @@ function Classes() {
 
       const navigate = useNavigate();
 
+      const [modalData, setModalData] = useState({
+        isOpen: false,
+        heading: '',
+        content: null,
+      });
+
+      const openModal = (heading, content) => {
+        setModalData({
+          isOpen: true,
+          heading,
+          content,
+        });
+      };
+
+      const closeModal = () => {
+        setModalData({ ...modalData, isOpen: false });
+      };
+
+      const showRecordingsModal = () => {
+        const heading = 'Recordings';
+        const content = (
+          <div>
+            <p>This is some content about me.</p>
+            <p>You can include more details here.</p>
+          </div>
+        );
+        openModal(heading, content);
+      };
+
   return (
     <div className='container-fluid'>
         <div className="row">
@@ -294,7 +324,7 @@ function Classes() {
             <div className="col-8">
                 <div className="head-section">
                     <h6>Please watch the recording.</h6>
-                    <button>Play Recording</button>
+                    <button onClick={showRecordingsModal}>Play Recording</button>
                 </div>
                 <div className="class-details-container">
                     <div className="class-head-section">
@@ -363,6 +393,17 @@ function Classes() {
                 </div>
             </div>
         </div>
+
+
+      <ModalComponent
+        isOpen={modalData.isOpen}
+        onClose={closeModal}
+        heading={modalData.heading} 
+      >
+        {modalData.content}
+      </ModalComponent>
+
+
     </div>
   )
 }
